@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Keywords" content="多玩游戏">
+    <meta name="description" content="">
+    <title> 多玩游戏 </title>
+    <link href="css/global.css" rel="stylesheet">
+</head>
+<body>
+    <div class="wrap">
+        <div class="ui-carousel" data-role="carousel-demo1">
+            <div class="ui-carousel__scroller">
+                <ul class="ui-carousel__content" data-switchable-role="content">
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/80x80x1" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/80x80x2" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/80x80x3" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/80x80x4" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/80x80x5" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/80x80x6" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/80x80x7" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/80x80x8" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/80x80x9" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/80x80x10" alt="">
+                    </li>
+                </ul>
+            </div>
+            <span class="ui-carousel__prev" data-switchable-role="prev"><i class="ui-icon">&#xe628;</i></span>
+            <span class="ui-carousel__next" data-switchable-role="next"><i class="ui-icon">&#xe642;</i></span>
+        </div>
+        <div class="ui-carousel ext-vertical" data-role="carousel-demo2">
+            <div class="ui-carousel__scroller">
+                <ul class="ui-carousel__content" data-switchable-role="content">
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/300x50x1" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/300x50x2" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/300x50x3" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/300x50x4" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/300x50x5" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/300x50x6" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/300x50x7" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/300x50x8" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/300x50x9" alt="">
+                    </li>
+                    <li class="ui-carousel__item">
+                        <img src="http://ued.yypm.com/300x50x10" alt="">
+                    </li>
+                </ul>
+            </div>
+            <span class="ui-carousel__prev" data-switchable-role="prev"><i class="ui-icon">&#xe61d;</i></span>
+            <span class="ui-carousel__next" data-switchable-role="next"><i class="ui-icon">&#xe654;</i></span>
+        </div>
+    </div>
+
+    <!-- <script src="http://www.duowan.com/public/s/i/navbar/navbar.js" charset="utf-8"></script> -->
+    <!-- 多玩通用导航 end -->
+    <!-- <script src="http://www.duowan.com/assets/js/duowanFooter.js" charset="utf-8"></script> -->
+    <!-- 多玩通用页脚 end -->
+    <!-- <script src="http://assets.dwstatic.com/common/js/jquery.js"></script> -->
+
+    <script src="js/sea.js"></script>
+    <script src="js/sea.config.js"></script>
+   <!--  <script type="text/javascript">
+        seajs.use(['arale/switchable/1.0.2/carousel-debug'], function(Carousel) {
+            // var $=require('jquery')
+        var carousel = new Carousel({
+            element: '[data-role="carousel-demo1"]',
+            classPrefix: null,
+            disabledBtnClass: 'is-disabled',
+            hasTriggers: false, //隐藏触发器
+            effect: 'scrollx',
+            // step: 5,
+            viewSize: [450],
+            circular: false, //禁用循环切换
+            autoplay: false,
+            duration: 350
+        }).render();
+
+        var carousel2 = new Carousel({
+            element: '[data-role="carousel-demo2"]',
+            classPrefix: null,
+            disabledBtnClass: 'is-disabled',
+            activeTriggerClass: 'is-active',
+            hasTriggers: false, //隐藏触发器
+            effect: 'scrolly',
+            // step: 5,
+            circular: false, //禁用循环切换
+            autoplay: false,
+            duration: 350
+        }).render();
+        // console.log($);
+        window.c = carousel2
+    });
+    </script> -->
+    <script type="text/javascript">
+    seajs.use(['carousel','$-debug'],function(Carousel,$){
+        // console.log(Carousel)
+         window.carousel1=new Carousel({
+            element: 'div[data-role=carousel-demo1]',
+            direction:'scrollX'
+        });
+        window.carousel2=new Carousel({
+            element: 'div[data-role=carousel-demo2]',
+            direction:'scrollY'
+        });
+
+        console.log(carousel1)
+        // console.log(carousel);
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,2626 @@
+@charset "UTF-8";
+/*
+ *@file:   全局样式
+ *@update: 2015-05-29 09:08:18
+ */
+/*
+ *@file:   LegoUI for pc
+ *@version: V3.0.0
+ *@update: 2015-05-27 16:21:00
+ */
+/*
+ * @file: UI配色
+ * @update: 2015-05-27 22:35:34
+ */
+/* 字体配置 */
+/* 其他配置 */
+/* 颜色配置 */
+/**
+ * @file:      SASS常用Function与Mixins
+ * @update:    2015-01-08 15:32:38
+ * @copyright: MIT License
+*/
+/* ==========================================================================
+   SASS function
+   ========================================================================== */
+/*
+ * @name:  px转em
+ * @param: $px {string}  对齐类型
+ * @param: $base-font-size {dimension}  基准字号大小
+ */
+/*
+ * @name:  半透明颜色
+ * @param: $opacity {number}  透明度值
+ */
+/* ==========================================================================
+   SASS mixins
+   ========================================================================== */
+/*
+ * @name:    BEM模块
+ * @param:   $elementSeparator {string}  BE连接符
+ * @param:   $modifierSeparator {string}  M连接符
+ * @param:   $selector {string}  类名
+ * @thanks:  https://medium.com/@marcmintel/pushing-bem-to-the-next-level-with-sass-3-4-5239d2371321 by @Marcmintel(https://twitter.com/marcmintel)
+ * @expamle:  
+    ============= user =============
+    @include b(block) {
+        background: red;
+        @include e(header){
+            font-size: 14px;
+            @include m(css) {
+                font-size: 18px;
+            }
+        };
+        @include m(book) {
+            color: blue;
+            @include e(kindlebook) {
+                background: gray;
+            }
+        }
+    }
+    ============= output =============
+    .block {
+        background: red;
+    }
+    .block__header {
+        font-size: 14px;
+    }
+    .block__header--css {
+        font-size: 18px;
+    }
+    .block--book {
+        color: blue;
+    }
+    .block--book .block__kindlebook {
+        background: gray;
+    }
+ */
+/* @name: 重置 */
+/*
+ * @name:  inline-block
+ * @param: $alignment {string}  对齐类型
+ * @param: $support-for-ie {boolean}  是否支持IE6
+ */
+/* @name: 闭合浮动 */
+/*
+ * @name:  浮动
+ * @param: $side {string}  浮动方向
+ * @param: $support-for-ie {boolean}  是否支持IE6
+ */
+/* @name: 文本隐藏 */
+/*
+ * @name:  文字溢出显示省略号
+ * @param: $width {dimension}  指定宽度 (需带单位)
+ */
+/*
+ * @name: 强制不换行
+ * @link: http://www.hicss.net/solve-change-line-in-css
+ */
+/* @name: 连续字符换行 */
+/* @name: 保留空白符序列，但是正常地进行换行 */
+/*
+ * @name:  resizable
+ * @param: $direction {string}  缩放的方向 (horizontal || vertical || both)
+ * @link:  https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/mixins/_resize.scss
+ * @1:     Per CSS3 UI, `resize` only applies when `overflow` isn't `visible`
+ */
+/*
+ * @name:  最小高度
+ * @param: $height {dimension}  最小高度
+ */
+/*
+ * @name:  背景透明
+ * @param: $color {color}  颜色  
+ * @param: $opacity {number}  透明度
+ * @param: $support-for-ie {boolean}  是否支持IE6
+ * @link:  https://github.com/airen/Sass_mixins_function/tree/master/mixins
+ */
+/*
+ * @name:  透明度
+ * @param: $opacity {number}  透明度
+ * @param: $support-for-ie {boolean}  是否支持IE6
+ */
+/* @name: 重置滤镜 */
+/*
+ * @name:  液态比例缩放
+ * @param: $large-size {dimension}  背景图片大尺寸
+ * @param: $small-size {dimension}  背景图片小尺寸
+ * @link:  http://voormedia.com/blog/2012/11/responsive-background-images-with-fixed-or-fluid-aspect-ratios
+ */
+/*
+ * @name:  border三角形
+ * @param: $base {dimension}  底边尺寸
+ * @param: $height {dimension}  高度
+ * @param: $color {color}  颜色
+ * @param: $direction {string}  方向 (top || bottom || left || right)
+ * @link:  http://codepen.io/zhouwenbin/pen/emZVZp
+ */
+/* ==========================================================================
+   媒体查询@Media Queries
+   ========================================================================== */
+/*
+ * @name:       媒体查询
+ * @thanks:     http://paranoida.com/　by @Rafal Bromirski (http://twitter.com/paranoida)
+ * @resolution: http://screensiz.es/tablet
+ * @link:       http://www.stephen.io/mediaqueries/
+ */
+/* ========= Screen ========= */
+/* ========= hdpi ========= */
+/* ========= iPhone5 ========= */
+/* ========= iPhone4 ========= */
+/* ========= iPhone3 ========= */
+/* ========= iPad All ========= */
+/* ========= iPad Mini ========= */
+/* ========= iPad Retina ========= */
+/*
+ * @file: 样式基础
+ * @update: 2015-05-05 21:09:12
+ */
+/* normalize.css v1.1.3 | MIT License | git.io/normalize */
+/* ==========================================================================
+   HTML5 display definitions
+   ========================================================================== */
+/**
+ * Correct `block` display not defined in IE 6/7/8/9 and Firefox 3.
+ */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+  display: block; }
+
+/**
+ * Correct `inline-block` display not defined in IE 6/7/8/9 and Firefox 3.
+ */
+audio, canvas, video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1; }
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+/**
+ * Address styling not present in IE 7/8/9, Firefox 3, and Safari 4.
+ * Known issue: no IE 6 support.
+ */
+[hidden] {
+  display: none; }
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+/**
+ * 1. Correct text resizing oddly in IE 6/7 when body `font-size` is set using
+ *    `em` units.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+html {
+  font-size: 100%;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+/**
+ * Address `font-family` inconsistency between `textarea` and other form
+ * elements.
+ */
+html, button, input, select, textarea {
+  font-family: sans-serif; }
+
+/**
+ * Address margins handled incorrectly in IE 6/7.
+ */
+body {
+  margin: 0; }
+
+/* ==========================================================================
+   Links
+   ========================================================================== */
+/**
+ * Address `outline` inconsistency between Chrome and other browsers.
+ */
+a:focus {
+  outline: thin dotted; }
+
+/**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */
+a:active, a:hover {
+  outline: 0; }
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+/**
+ * Address font sizes and margins set differently in IE 6/7.
+ * Address font sizes within `section` and `article` in Firefox 4+, Safari 5,
+ * and Chrome.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+h2 {
+  font-size: 1.5em;
+  margin: 0.83em 0; }
+
+h3 {
+  font-size: 1.17em;
+  margin: 1em 0; }
+
+h4 {
+  font-size: 1em;
+  margin: 1.33em 0; }
+
+h5 {
+  font-size: 0.83em;
+  margin: 1.67em 0; }
+
+h6 {
+  font-size: 0.67em;
+  margin: 2.33em 0; }
+
+/**
+ * Address styling not present in IE 7/8/9, Safari 5, and Chrome.
+ */
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+/**
+ * Address style set to `bolder` in Firefox 3+, Safari 4/5, and Chrome.
+ */
+b, strong {
+  font-weight: bold; }
+
+blockquote {
+  margin: 1em 40px; }
+
+/**
+ * Address styling not present in Safari 5 and Chrome.
+ */
+dfn {
+  font-style: italic; }
+
+/**
+ * Address differences between Firefox and other browsers.
+ * Known issue: no IE 6/7 normalization.
+ */
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0; }
+
+/**
+ * Address styling not present in IE 6/7/8/9.
+ */
+mark {
+  background: #ff0;
+  color: #000; }
+
+/**
+ * Address margins set differently in IE 6/7.
+ */
+p, pre {
+  margin: 1em 0; }
+
+/**
+ * Correct font family set oddly in IE 6, Safari 4/5, and Chrome.
+ */
+code, kbd, pre, samp {
+  font-family: monospace, serif;
+  _font-family: 'courier new', monospace;
+  font-size: 1em; }
+
+/**
+ * Improve readability of pre-formatted text in all browsers.
+ */
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word; }
+
+/**
+ * Address CSS quotes not supported in IE 6/7.
+ */
+q {
+  quotes: none; }
+
+/**
+ * Address `quotes` property not supported in Safari 4.
+ */
+q:before, q:after {
+  content: '';
+  content: none; }
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  top: -0.5em; }
+
+sub {
+  bottom: -0.25em; }
+
+/* ==========================================================================
+   Lists
+   ========================================================================== */
+/**
+ * Address margins set differently in IE 6/7.
+ */
+dl, menu, ol, ul {
+  margin: 1em 0; }
+
+dd {
+  margin: 0 0 0 40px; }
+
+/**
+ * Address paddings set differently in IE 6/7.
+ */
+menu, ol, ul {
+  padding: 0 0 0 40px; }
+
+/**
+ * Correct list images handled incorrectly in IE 7.
+ */
+nav ul, nav ol {
+  list-style: none;
+  list-style-image: none; }
+
+/* ==========================================================================
+   Embedded content
+   ========================================================================== */
+/**
+ * 1. Remove border when inside `a` element in IE 6/7/8/9 and Firefox 3.
+ * 2. Improve image quality when scaled in IE 7.
+ */
+img {
+  border: 0;
+  /* 1 */
+  -ms-interpolation-mode: bicubic;
+  /* 2 */ }
+
+/**
+ * Correct overflow displayed oddly in IE 9.
+ */
+svg:not(:root) {
+  overflow: hidden; }
+
+/* ==========================================================================
+   Figures
+   ========================================================================== */
+/**
+ * Address margin not present in IE 6/7/8/9, Safari 5, and Opera 11.
+ */
+figure {
+  margin: 0; }
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+/**
+ * Correct margin displayed oddly in IE 6/7.
+ */
+form {
+  margin: 0; }
+
+/**
+ * Define consistent border, margin, and padding.
+ */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; }
+
+/**
+ * 1. Correct color not being inherited in IE 6/7/8/9.
+ * 2. Correct text not wrapping in Firefox 3.
+ * 3. Correct alignment displayed oddly in IE 6/7.
+ */
+legend {
+  border: 0;
+  /* 1 */
+  padding: 0;
+  white-space: normal;
+  /* 2 */
+  *margin-left: -7px;
+  /* 3 */ }
+
+/**
+ * 1. Correct font size not being inherited in all browsers.
+ * 2. Address margins set differently in IE 6/7, Firefox 3+, Safari 5,
+ *    and Chrome.
+ * 3. Improve appearance and consistency in all browsers.
+ */
+button, input, select, textarea {
+  font-size: 100%;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+  vertical-align: baseline;
+  /* 3 */
+  *vertical-align: middle;
+  /* 3 */ }
+
+/**
+ * Address Firefox 3+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+button, input {
+  line-height: normal; }
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Chrome, Safari 5+, and IE 6+.
+ * Correct `select` style inheritance in Firefox 4+ and Opera.
+ */
+button, select {
+  text-transform: none; }
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ * 4. Remove inner spacing in IE 7 without affecting normal text inputs.
+ *    Known issue: inner spacing remains in IE 6.
+ */
+button, html input[type="button"], input[type="reset"], input[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+  cursor: pointer;
+  /* 3 */
+  *overflow: visible;
+  /* 4 */ }
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+button[disabled], html input[disabled] {
+  cursor: default; }
+
+/**
+ * 1. Address box sizing set to content-box in IE 8/9.
+ * 2. Remove excess padding in IE 8/9.
+ * 3. Remove excess padding in IE 7.
+ *    Known issue: excess padding remains in IE 6.
+ */
+input[type="checkbox"], input[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+  *height: 13px;
+  /* 3 */
+  *width: 13px;
+  /* 3 */ }
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
+ *    (include `-moz` to future-proof).
+ */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  /* 2 */
+  box-sizing: content-box; }
+
+/**
+ * Remove inner padding and search cancel button in Safari 5 and Chrome
+ * on OS X.
+ */
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/**
+ * Remove inner padding and border in Firefox 3+.
+ */
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+/**
+ * 1. Remove default vertical scrollbar in IE 6/7/8/9.
+ * 2. Improve readability and alignment in all browsers.
+ */
+textarea {
+  overflow: auto;
+  /* 1 */
+  vertical-align: top;
+  /* 2 */ }
+
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+/**
+ * Remove most spacing between table cells.
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+body {
+  font: 12px/1.5 Tahoma, Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: #333;
+  background-color: #fff; }
+
+a {
+  text-decoration: none;
+  color: #333; }
+  a:hover {
+    text-decoration: underline;
+    color: #f40; }
+  a:focus {
+    outline: none; }
+
+/* 去除现代浏览器图片底部的空隙 */
+img {
+  vertical-align: top; }
+
+i, em {
+  font-style: normal; }
+
+ol, ul, menu {
+  list-style: none outside none; }
+
+fieldset, iframe {
+  border: 0 none; }
+
+dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td, hr, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0; }
+
+/* IE6 7 8(q) bug 显示为行内表现 */
+iframe {
+  display: block; }
+
+/* IE bug fixed: th 不继承 text-align */
+th {
+  text-align: inherit; }
+
+/* 修正表单元素不继承父级字体族的问题 */
+input, button, select, textarea {
+  font-family: Tahoma, Arial, "Helvetica Neue", Helvetica, sans-serif; }
+
+/**
+ * 1. 移除 IE6-11 中默认的垂直滚动条
+ * 2. 禁止水平拖动，防止破坏布局
+ */
+textarea {
+  overflow: auto;
+  /* 1 */
+  resize: vertical;
+  /* 2 */ }
+
+/* 一致的 del 样式 */
+del {
+  text-decoration: line-through; }
+
+abbr {
+  cursor: help; }
+
+/* 以下为排版样式 */
+hr {
+  height: 10px;
+  margin-bottom: 0.8em;
+  border: none;
+  border-bottom: 1px solid #cfcfcf; }
+
+blockquote {
+  position: relative;
+  padding-left: 1em;
+  border-left: 1px solid #1abc9c;
+  font-weight: 300;
+  color: #999; }
+
+/*
+ * @file: 打印样式
+ * @update: 2015-05-28 11:09:51
+ * @source: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css
+ */
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid the additional HTTP request:
+   http://www.phpied.com/delay-loading-your-print-css/
+   ========================================================================== */
+@media print {
+  *, *:before, *:after {
+    background: transparent !important;
+    color: #000 !important;
+    /* Black prints faster:
+                                   http://www.sanbeiji.com/archives/953 */
+    box-shadow: none !important;
+    text-shadow: none !important; }
+  a, a:visited {
+    text-decoration: underline; }
+  a[href]:after {
+    content: " (" attr(href) ")"; }
+  abbr[title]:after {
+    content: " (" attr(title) ")"; }
+  /*
+     * Don't show links that are fragment identifiers,
+     * or use the `javascript:` pseudo protocol
+     */
+  a[href^="#"]:after, a[href^="javascript:"]:after {
+    content: ""; }
+  pre, blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid; }
+  /*
+     * Printing Tables:
+     * http://css-discuss.incutio.com/wiki/Printing_Tables
+     */
+  thead {
+    display: table-header-group; }
+  tr, img {
+    page-break-inside: avoid; }
+  img {
+    max-width: 100% !important; }
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3; }
+  h2, h3 {
+    page-break-after: avoid; }
+  .u-printHide {
+    display: none !important; } }
+
+/*
+ * @file: 文字列表UI组件
+ * @update: 2015-05-17 16:37:05
+ */
+/*
+ * 默认列表
+ * @base
+ */
+.ui-list__item {
+  height: 24px;
+  line-height: 24px;
+  overflow: hidden; }
+
+.ui-list__link {
+  margin-right: 10px; }
+
+.ui-list__tag {
+  color: #F60; }
+
+.ui-list__meta {
+  float: right;
+  margin-left: 10px;
+  color: #999; }
+
+.ui-list__num {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *display: inline;
+  zoom: 1;
+  overflow: hidden;
+  margin-right: 5px;
+  width: 18px;
+  height: 14px;
+  border-radius: 2px;
+  font: normal 12px/14px verdana;
+  text-align: center;
+  color: #666;
+  background-color: #E8E8E8; }
+
+/*
+ * 实心圆标记
+ * @extend: disc
+ */
+.ui-list.ext-disc {
+  list-style: disc inside none; }
+
+/*
+ * 实心方块标记
+ * @extend: square
+ */
+.ui-list.ext-square {
+  list-style: square inside none; }
+
+/*
+ * 双栏列表
+ * @extend: half
+ */
+.ui-list.ext-half {
+  font-size: 0;
+  /* 所有浏览器 */
+  *word-spacing: -1px;
+  /* IE6/7 */ }
+  .ui-list.ext-half .ui-list__item {
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    *display: inline;
+    zoom: 1;
+    vertical-align: top;
+    font-size: 12px;
+    letter-spacing: normal;
+    word-spacing: normal;
+    width: 48%;
+    *width: 47.99%;
+    margin-right: 2%; }
+
+@media (-webkit-min-device-pixel-ratio: 0) {
+  .ui-list.ext-half {
+    letter-spacing: -5px;
+    /* Safari 5- 等不支持 font-size: 0 的浏览器*/ } }
+
+/*
+ * @file: 按钮基础UI组件
+ * @update: 2015-05-03 14:19:53
+ */
+/*
+ * 默认按钮
+ * @base
+ */
+/* 默认按钮大小配置 */
+/* 默认按钮配色 */
+/* 禁用状态按钮配置 */
+.ui-btn {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *display: inline;
+  zoom: 1;
+  width: auto;
+  padding: 8px 18px;
+  line-height: 1;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  font-size: 12px;
+  color: #333;
+  background-color: #fff;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  *overflow: visible;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  /*
+	 * 鼠标悬浮状态
+	 * @state: hover
+	 */
+  /*
+	 * 激活状态
+	 * @state: active
+	 */
+  /*
+	 * 禁用状态
+	 * @state: disabled
+	 */ }
+  .ui-btn.is-hover, .ui-btn:hover {
+    color: #333;
+    background-color: #ebebeb;
+    border-color: #adadad;
+    text-decoration: none; }
+  .ui-btn.is-active, .ui-btn:active {
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    -ms-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); }
+  .ui-btn.is-disabled {
+    color: #999;
+    background-color: #f5f5f5;
+    border-color: #e6e6e6; }
+    .ui-btn.is-disabled.is-hover, .ui-btn.is-disabled:hover {
+      cursor: not-allowed;
+      color: #999;
+      background-color: #f5f5f5;
+      border-color: #e6e6e6; }
+    .ui-btn.is-disabled.is-active, .ui-btn.is-disabled:active {
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      -ms-box-shadow: none;
+      box-shadow: none; }
+
+a.ui-btn {
+  text-decoration: none; }
+  a.ui-btn:hover {
+    text-decoration: none; }
+
+input.ui-btn, button.ui-btn {
+  *padding: 7px 17px 6px; }
+
+/*
+ * 首选按钮
+ * @extend: primary
+ */
+.ui-btn.ext-primary {
+  color: #fff;
+  background-color: #288ad6;
+  border-color: #288ad6; }
+  .ui-btn.ext-primary.is-hover, .ui-btn.ext-primary:hover {
+    color: #fff;
+    background-color: #52a1de;
+    border-color: #52a1de; }
+
+/*
+ * 成功按钮
+ * @extend: success
+ */
+.ui-btn.ext-success {
+  color: #fff;
+  background-color: #16c98d;
+  border-color: #16c98d; }
+  .ui-btn.ext-success.is-hover, .ui-btn.ext-success:hover {
+    color: #fff;
+    background-color: #44d3a3;
+    border-color: #44d3a3; }
+
+/*
+ * 信息按钮
+ * @extend: info
+ */
+.ui-btn.ext-info {
+  color: #fff;
+  background-color: #2fc2ef;
+  border-color: #2fc2ef; }
+  .ui-btn.ext-info.is-hover, .ui-btn.ext-info:hover {
+    color: #fff;
+    background-color: #58cef2;
+    border-color: #58cef2; }
+
+/*
+ * 警告按钮
+ * @extend: warning
+ */
+.ui-btn.ext-warning {
+  color: #3b444f;
+  background-color: #feef6d;
+  border-color: #3b444f; }
+  .ui-btn.ext-warning.is-hover, .ui-btn.ext-warning:hover {
+    color: #3b444f;
+    background-color: #feef6d;
+    border-color: #3b444f; }
+
+/*
+ * 危险按钮
+ * @extend: danger
+ */
+.ui-btn.ext-danger {
+  color: #fff;
+  background-color: #fa5e5b;
+  border-color: #fa5e5b; }
+  .ui-btn.ext-danger.is-hover, .ui-btn.ext-danger:hover {
+    color: #fff;
+    background-color: #fb7e7b;
+    border-color: #fb7e7b; }
+
+/*
+ * 块状按钮
+ * @extend: block
+ */
+.ui-btn.ext-block {
+  display: block;
+  text-align: center; }
+
+/*
+ * @file: 表单UI组件
+ * @update: 2015-05-03 14:19:53
+ */
+/*
+ * 默认表单
+ * @base
+ */
+.ui-form {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.5; }
+
+.ui-form__item {
+  *zoom: 1;
+  padding: 0 5px 15px 120px;
+  /*
+     * 表单验证提示
+     * @state: error
+     */ }
+  .ui-form__item:before, .ui-form__item:after {
+    content: "";
+    display: table;
+    line-height: 0; }
+  .ui-form__item:after {
+    clear: both; }
+  .ui-form__item.is-error .ui-input, .ui-form__item.is-error .ui-inputGroup__addon {
+    border-color: #fa5e5b; }
+  .ui-form__item.is-error .ui-form__tips {
+    color: #fa5e5b; }
+
+.ui-form__label {
+  float: left;
+  width: 110px;
+  margin-left: -120px;
+  padding-top: 6px;
+  text-align: right; }
+
+.ui-form__tips {
+  margin-left: 5px;
+  color: #999; }
+
+.ui-form__required {
+  font-family: SimSun;
+  color: #fa5e5b;
+  margin-right: 2px; }
+
+.ui-form__control .ui-btn {
+  margin-right: 10px; }
+
+.ui-form__multi .ui-input, .ui-form__multi .ui-inputGroup__addon {
+  margin-bottom: 10px; }
+  .ui-form__multi .ui-input:last-of-type, .ui-form__multi .ui-inputGroup__addon:last-of-type {
+    margin-bottom: 0; }
+
+/*
+ * 说明文本独立一行
+ * @extend: blockTips
+ */
+.ui-form.ext-blockTips .ui-form__tips {
+  display: block;
+  padding-top: 8px; }
+
+/*
+ * 标签左对齐
+ * @extend: alignLeft
+ */
+.ui-form.ext-alignLeft .ui-form__item {
+  padding-left: 70px; }
+.ui-form.ext-alignLeft .ui-form__label {
+  width: 60px;
+  margin-left: -70px;
+  text-align: left; }
+.ui-form.ext-alignLeft .ui-form__required {
+  margin-left: 2px; }
+
+/*
+ * 标签顶部对齐
+ * @extend: stacked
+ */
+.ui-form.ext-stacked {
+  padding-left: 0; }
+  .ui-form.ext-stacked .ui-form__item {
+    padding-left: 0; }
+  .ui-form.ext-stacked .ui-form__label {
+    float: none;
+    width: auto;
+    display: block;
+    margin-left: 0;
+    padding-top: 0;
+    padding-bottom: 5px;
+    text-align: left; }
+  .ui-form.ext-stacked .ui-form__required {
+    margin-left: 2px; }
+
+/*
+ * 内联表单
+ * @extend: inline
+ */
+.ui-form.ext-inline {
+  padding-left: 0; }
+  .ui-form.ext-inline .ui-form__item {
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    *display: inline;
+    zoom: 1;
+    padding-right: 15px;
+    padding-left: 0;
+    vertical-align: middle; }
+  .ui-form.ext-inline .ui-form__label {
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    *display: inline;
+    zoom: 1;
+    margin-left: 0;
+    width: auto;
+    margin-right: 10px; }
+
+/*
+ * 无lable标签
+ * @extend: noLabel
+ */
+.ui-form.ext-noLabel .ui-form__item {
+  padding-left: 0; }
+
+/*
+ * 栅格化多列表单
+ * @extend: multiCol
+ */
+.ui-form {
+  /*
+     * 2列栅格化
+     * @extend: ext-grid2
+     */
+  /*
+     * 3列栅格化
+     * @extend: ext-grid3
+     */
+  /*
+     * 4列栅格化
+     * @extend: ext-grid4
+     */ }
+  .ui-form.ext-multiCol {
+    letter-spacing: -.31em;
+    *letter-spacing: normal;
+    *word-spacing: -.43em;
+    font-family: FreeSans, Arimo, "Droid Sans", Helvetica, Arial, sans-serif;
+    text-rendering: optimizespeed;
+    display: -webkit-flex;
+    -webkit-flex-flow: row wrap;
+    display: -ms-flexbox;
+    -ms-flex-flow: row wrap; }
+    .ui-form.ext-multiCol .ui-form__item {
+      display: inline-block;
+      vertical-align: middle;
+      *vertical-align: auto;
+      *display: inline;
+      zoom: 1;
+      letter-spacing: normal;
+      word-spacing: normal;
+      vertical-align: top;
+      text-rendering: auto;
+      padding: 0 0 15px; }
+    .ui-form.ext-multiCol .ui-form__label {
+      display: block;
+      float: none;
+      margin: 0 0 5px 0;
+      padding: 0;
+      text-align: left; }
+    .ui-form.ext-multiCol .ui-form__control {
+      display: block;
+      width: 100% !important; }
+  .ui-form.ext-grid2 .ui-form__item {
+    width: 50%;
+    *width: 49.969%; }
+  .ui-form.ext-grid3 .ui-form__item {
+    width: 33.3333%;
+    *width: 33.3023%; }
+  .ui-form.ext-grid4 .ui-form__item {
+    width: 25%;
+    *width: 24.969%; }
+
+/* ============================ 以下为表单控件 ============================ */
+/*
+ * 单行输入框
+ * @module: input
+ */
+.ui-input, .ui-inputGroup__addon {
+  height: 20px;
+  line-height: 20px;
+  padding: 4px 5px;
+  vertical-align: middle;
+  border: 1px solid #ccc;
+  color: #666; }
+
+/*
+ * 输入框组
+ * @base
+ */
+.ui-inputGroup {
+  font-size: 0;
+  *word-spacing: -1px; }
+  .ui-inputGroup * {
+    font-size: 12px;
+    vertical-align: top;
+    letter-spacing: normal;
+    word-spacing: normal; }
+  .ui-inputGroup .ui-input, .ui-inputGroup .ui-inputGroup__addon, .ui-inputGroup .ui-btn {
+    position: relative; }
+    .ui-inputGroup .ui-input:focus, .ui-inputGroup .ui-inputGroup__addon:focus, .ui-inputGroup .ui-btn:focus {
+      z-index: 2; }
+
+@media (-webkit-min-device-pixel-ratio: 0) {
+  .ui-inputGroup {
+    letter-spacing: -5px; } }
+
+.ui-inputGroup__addon {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *display: inline;
+  zoom: 1;
+  width: auto;
+  min-width: 16px;
+  margin-right: -1px;
+  text-align: center;
+  background-color: #eee;
+  color: #666; }
+
+/*
+ * 附加输入框
+ * @extend: append
+ */
+.ui-inputGroup.ext-append .ui-inputGroup__addon, .ui-inputGroup.ext-append .ui-btn {
+  margin-left: -1px; }
+
+/*
+ * 文本域
+ * @base
+ */
+.ui-textarea {
+  padding: 4px 5px;
+  border: 1px solid #ccc;
+  color: #666; }
+
+/*
+ * 下拉选择/单选/多选框
+ * @base: select/radio/checkbox
+ */
+input[type="radio"] {
+  margin: 2px 0;
+  *margin-top: 0; }
+
+input[type="checkbox"] {
+  margin: 3px 0;
+  *margin-top: 0; }
+
+.ui-select {
+  vertical-align: middle;
+  margin-right: 5px; }
+
+.ui-form__txt, .ui-radio, .ui-checkbox, .ui-fileInput {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *display: inline;
+  zoom: 1;
+  vertical-align: middle;
+  margin: 5px 12px 0 0; }
+
+.ui-radio input[type="radio"], .ui-radio input[type="checkbox"], .ui-checkbox input[type="radio"], .ui-checkbox input[type="checkbox"] {
+  float: left;
+  margin-right: 5px; }
+
+/*
+ * 文件上传
+ * @base
+ */
+.ui-upload {
+  position: relative;
+  font-size: 0; }
+  .ui-upload .ui-input, .ui-upload .ui-inputGroup__addon {
+    margin-right: 10px;
+    font-size: 12px; }
+
+.ui-upload__file {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  width: 214px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  cursor: pointer; }
+
+/*
+ * 文件上传
+ * @extend: single
+ */
+.ui-upload.ext-single {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *display: inline;
+  zoom: 1;
+  vertical-align: middle;
+  position: relative;
+  overflow: hidden; }
+  .ui-upload.ext-single .ui-upload__file {
+    right: 0;
+    left: auto;
+    height: 100%;
+    font-size: 26px; }
+
+/*
+ * 禁用只读状态
+ * @base
+ */
+input[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {
+  color: #aaa;
+  background-color: #eee;
+  border: 1px solid #ddd; }
+
+input[disabled], select[disabled], textarea[disabled] {
+  cursor: not-allowed; }
+
+input[readonly], select[readonly], textarea[readonly] {
+  color: #999;
+  cursor: text;
+  background-color: #f7f7f7; }
+
+/*
+ * @file: table表格基础UI组件
+ * @update: 2015-05-03 13:45:51
+ */
+/*
+ * 默认表格
+ * @base
+ */
+.ui-table {
+  width: 100%;
+  font-size: 12px; }
+  .ui-table th, .ui-table td {
+    padding: 8px; }
+  .ui-table th {
+    text-align: left;
+    font-weight: 700; }
+
+/*
+ * 有边框的表格
+ * @extend: border
+ */
+.ui-table.ext-border th, .ui-table.ext-border td {
+  border: 1px solid #d2d2d2; }
+
+/*
+ * 隔行变色表格
+ * @extend: striped
+ */
+.ui-table.ext-striped tbody tr:nth-child(even) td {
+  background-color: #f9f9f9; }
+
+/*
+ * hover变色表格
+ * @extend: hover
+ */
+.ui-table.ext-hover tbody tr:hover {
+  background-color: #f9f9f9; }
+
+/*
+ * @file: 字体图标
+ * @update: 2015-05-19 16:51:59
+ */
+@font-face {
+  font-family: "lego";
+  src: url('../font/lego/iconfont.eot');
+  /* IE9*/
+  src: url('../font/lego/iconfont.eot?#iefix') format('embedded-opentype'), url('../font/lego/iconfont.woff') format('woff'), url('../font/lego/iconfont.ttf') format('truetype'), url('../font/lego/iconfont.svg#iconfont') format('svg');
+  /* iOS 4.1- */ }
+
+.ui-icon {
+  font-family: "lego" !important;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 1.1;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none; }
+
+/*
+ * @file: 区块面板基础UI组件
+ * @update: 2015-05-03 13:45:51
+ */
+/*
+ * 默认面板
+ * @base
+ */
+.ui-panel {
+  font-size: 12px;
+  *zoom: 1; }
+
+.ui-panel__hd {
+  position: relative;
+  height: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 16px; }
+  .ui-panel__hd .ui-lineList {
+    margin-top: 1px;
+    margin-right: -10px; }
+
+.ui-panel__bd {
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+.ui-panel__tit {
+  float: left;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333; }
+
+.ui-panel__ico {
+  float: left;
+  width: 14px;
+  height: 14px;
+  margin-right: 5px;
+  background-color: #666; }
+
+.ui-panel__meta {
+  float: left;
+  margin-top: 1px;
+  margin-right: 10px;
+  color: #999; }
+
+.ui-panel__more {
+  float: right; }
+
+/*
+ * 带边框的面板
+ * @extend: border
+ */
+.ui-panel.ext-border {
+  border: 1px solid #ddd;
+  border-bottom: none; }
+  .ui-panel.ext-border .ui-panel__hd {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: #f5f5f5; }
+  .ui-panel.ext-border .ui-panel__bd {
+    padding: 10px;
+    border-bottom: 1px solid #ddd; }
+
+/*
+ * 弹窗外观的面板
+ * @extend: pop
+ */
+.ui-panel.ext-pop {
+  padding: 5px;
+  border-radius: 5px;
+  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000,endColorstr=#19000000); }
+  .ui-panel.ext-pop .ui-panel__hd {
+    padding: 10px;
+    background-color: #f5f5f5; }
+  .ui-panel.ext-pop .ui-panel__bd {
+    padding: 10px;
+    background-color: #fff; }
+  .ui-panel.ext-pop .ui-panel__close {
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    *display: inline;
+    zoom: 1;
+    width: 18px;
+    height: 18px;
+    margin-top: -4px;
+    font-family: Helvetica, STHeiti;
+    _font-family: '\u9ed1\u4f53', 'Book Antiqua', Palatino;
+    font-size: 18px;
+    text-align: center;
+    line-height: 18px;
+    color: #bbb; }
+    .ui-panel.ext-pop .ui-panel__close:hover {
+      color: #fff;
+      background-color: #ddd;
+      border-radius: 3px; }
+
+:root .ui-panel.ext-pop {
+  filter: none\9; }
+
+/*
+ * @file: 图片列表基础UI组件
+ * @update: 2015-05-03 14:19:53
+ */
+/*
+ * 默认图片列表
+ * @base
+ */
+.ui-figure {
+  margin-right: -10px;
+  font-size: 0;
+  *word-spacing: -1px; }
+
+@media (-webkit-min-device-pixel-ratio: 0) {
+  .ui-figure {
+    letter-spacing: -5px; } }
+
+.ui-figure__item {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *display: inline;
+  zoom: 1;
+  width: 130px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  vertical-align: top;
+  letter-spacing: normal;
+  word-spacing: normal;
+  overflow: hidden; }
+
+.ui-figure__bd {
+  position: relative;
+  display: block;
+  height: 90px; }
+
+a.ui-figure__bd {
+  cursor: pointer; }
+  a.ui-figure__bd:hover {
+    text-decoration: none; }
+
+.ui-figure__img {
+  width: 130px;
+  height: 90px;
+  overflow: hidden; }
+
+.ui-figure__mask {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 24px;
+  line-height: 24px;
+  text-indent: 5px;
+  color: #fff;
+  overflow: hidden;
+  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.5);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000,endColorstr=#7f000000);
+  zoom: 1; }
+
+:root .ui-figure__mask {
+  filter: none\9; }
+
+.ui-figure__sign {
+  float: left;
+  margin-right: 5px; }
+
+.ui-figure__meta {
+  display: block;
+  margin-right: 5px;
+  overflow: hidden;
+  *zoom: 1;
+  text-align: right; }
+
+.ui-figure__caption {
+  display: block;
+  margin-top: 5px;
+  font-weight: normal; }
+
+/*
+ * 以下为带变量参数的公用类，可方便拷贝并新建无冗余的扩展类
+ */
+/*
+.ui-figure {
+	&.ext-name {
+		margin-right: -$item-margin-right;
+		.ui-figure__item {
+			width: $img-width;
+			margin-right: $item-margin-right;
+			margin-bottom: $item-margin-bottom;
+		}
+		.ui-figure__bd {
+		    height: $img-height; //如不需兼容IE6，可使用100%
+		}
+		.ui-figure__img {
+			width: $img-width;
+			height: $img-height;
+		}
+		.ui-figure__mask {
+			height: $mask-height;
+			line-height: $mask-line-height;
+			text-indent: 5px;
+		}
+	}
+}
+*/
+/*
+ * 全屏封面
+ * @extend: cover
+ */
+.ui-figure.ext-cover .ui-figure__bd {
+  overflow: hidden; }
+  .ui-figure.ext-cover .ui-figure__bd:hover .ui-figure__mask, .ui-figure.ext-cover .ui-figure__bd.is-hover .ui-figure__mask {
+    bottom: 0; }
+.ui-figure.ext-cover .ui-figure__mask {
+  bottom: -100%;
+  height: 100%;
+  line-height: 1.5;
+  text-indent: 0;
+  -webkit-transition: bottom 0.2s ease-out 0s;
+  -moz-transition: bottom 0.2s ease-out 0s;
+  -ms-transition: bottom 0.2s ease-out 0s;
+  -o-transition: bottom 0.2s ease-out 0s;
+  transition: bottom 0.2s ease-out 0s;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d; }
+
+/*
+ * 遮罩自适应
+ * @extend: autoMask
+ */
+.ui-figure.ext-autoMask .ui-figure__mask {
+  width: auto; }
+
+/*
+ * 无遮罩
+ * @extend: noMask
+ */
+.ui-figure.ext-noMask .ui-figure__mask {
+  background: none;
+  filter: none; }
+
+/*
+ * 有边框
+ * @extend: border
+ */
+.ui-figure.ext-border .ui-figure__item {
+  padding: 2px;
+  border: 1px solid #ddd; }
+.ui-figure.ext-border .ui-figure__caption {
+  padding: 0 5px 5px; }
+
+/*
+ * @file: 图文混排基础UI组件
+ * @update: 2015-05-17 16:37:05
+ */
+.ui-media__item {
+  *zoom: 1;
+  margin-bottom: 20px; }
+  .ui-media__item:before, .ui-media__item:after {
+    content: "";
+    display: table;
+    line-height: 0; }
+  .ui-media__item:after {
+    clear: both; }
+
+.ui-media__hd {
+  float: left;
+  margin-right: 15px; }
+
+.ui-media__bd {
+  overflow: hidden;
+  zoom: 1; }
+
+.ui-media__ft {
+  float: right;
+  margin-left: 15px; }
+
+.ui-media__tit {
+  margin-bottom: 10px;
+  line-height: 1.1;
+  font-size: 16px; }
+
+.ui-media__img {
+  width: 60px;
+  height: 60px;
+  overflow: hidden; }
+
+/*
+ * @file: 分页导航基础UI组件
+ * @update: 2015-05-17 16:37:05
+ */
+/*
+ * 默认分页导航
+ * @base
+ */
+.ui-paging {
+  vertical-align: middle;
+  zoom: 1;
+  font-size: 0;
+  /* 所有浏览器 */
+  *word-spacing: -1px;
+  /* IE6/7 */ }
+
+@media (-webkit-min-device-pixel-ratio: 0) {
+  .ui-paging {
+    letter-spacing: -5px;
+    /* Safari 5- 等不支持 font-size: 0 的浏览器*/ } }
+
+.ui-paging .ui-paging__item, .ui-paging .ui-paging__info, .ui-paging .ui-paging__which, .ui-paging .ui-paging__ellipsis {
+  font-size: 12px;
+  letter-spacing: normal;
+  word-spacing: normal; }
+
+.ui-paging__item {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *display: inline;
+  zoom: 1;
+  padding: 5px 8px;
+  margin-right: 10px;
+  line-height: 1;
+  border-radius: 3px;
+  color: #666;
+  border: 1px solid #fff;
+  /* ===状态类（当前）=== */
+  /* ===状态类（禁用）=== */ }
+  .ui-paging__item.is-current {
+    color: #fff;
+    background-color: #288ad6;
+    border-color: #288ad6; }
+    .ui-paging__item.is-current:hover {
+      background-color: #288ad6;
+      border-color: #288ad6; }
+  .ui-paging__item.is-disabled {
+    filter: none;
+    cursor: default; }
+
+a.ui-paging__item:hover {
+  text-decoration: none;
+  color: #666;
+  background-color: #f5f5f5;
+  border-color: #f5f5f5; }
+
+.ui-paging__ellipsis, .ui-paging__info {
+  margin-right: 10px; }
+
+.ui-paging__info {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *display: inline;
+  zoom: 1; }
+
+.ui-paging__which {
+  width: 22px;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 6px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  vertical-align: middle;
+  text-align: center; }
+
+/*
+ * 完整型分页导航
+ * @extend: primary
+ */
+.ui-paging.ext-full .ui-paging__item {
+  background-color: #f5f5f5;
+  border-color: #f5f5f5; }
+  .ui-paging.ext-full .ui-paging__item.is-current {
+    color: #fff;
+    background-color: #288ad6;
+    border-color: #288ad6; }
+  .ui-paging.ext-full .ui-paging__item.is-disabled {
+    color: #aaa;
+    background-color: #eee;
+    border-color: #eee; }
+.ui-paging.ext-full a.ui-paging__item:hover {
+  color: #fff;
+  background-color: #288ad6;
+  border-color: #288ad6; }
+
+/*
+ * @file: 徽章UI组件
+ * @update: 2015-05-02 11:50:42
+ */
+/*
+ * 默认徽章
+ * @base
+ */
+.ui-badge {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *display: inline;
+  zoom: 1;
+  min-width: 10px;
+  padding: 3px 6px;
+  line-height: 1;
+  text-align: center; }
+
+/*
+ * 圆角徽章
+ * @extend: radius
+ */
+.ui-badge.ext-radius {
+  border-radius: 3px; }
+
+/*
+ * 圆形徽章
+ * @extend: round
+ */
+.ui-badge.ext-round {
+  border-radius: 10px; }
+
+/*
+ * @file: 进度条基础UI组件
+ * @update: 2015-05-03 13:45:51
+ */
+/*
+ * 默认面板
+ * @base
+ */
+.ui-progress {
+  overflow: hidden;
+  height: 24px;
+  background-color: #f5f5f5;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); }
+
+.ui-progress__bar {
+  float: left;
+  width: 0;
+  height: 100%;
+  line-height: 24px;
+  text-align: center;
+  color: #fff;
+  background-color: #0097d6;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  -webkit-transition: width .6s ease;
+  transition: width .6s ease; }
+
+/*
+ * @file: 带分割线的文本列表
+ * @update: 2015-05-16 22:22:47
+ */
+/*
+ * 默认
+ * @base
+ */
+.ui-lineList {
+  overflow: hidden;
+  font-size: 0; }
+  .ui-lineList a {
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: auto;
+    *display: inline;
+    zoom: 1;
+    margin-left: -1px;
+    padding: 0 10px;
+    line-height: 1.1;
+    border-left: 1px solid #ddd;
+    white-space: nowrap;
+    word-wrap: normal;
+    color: #999;
+    font-size: 12px; }
+
+/*
+ * @file: dialog基础UI组件
+ * @update: 2015-05-03 14:19:53
+ */
+/*
+ * 默认dialog
+ * @base
+ */
+.ui-dialog {
+  outline: none; }
+
+.ui-dialog-close {
+  position: absolute;
+  right: 0;
+  z-index: 9;
+  width: 46px;
+  height: 0;
+  padding-top: 44px;
+  overflow: hidden;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAsCAMAAAAtr3oOAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAOVBMVEX////19fX+/v7y8vX///+oqKjz8/Xz8/b09Pb09Pf19ff29vj39/n4+Pn4+Pr5+fr5+fv6+vsAAABX36Q3AAAAA3RSTlPmTOc1ux8eAAAAAWJLR0QSe7xsAAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAIhJREFUSMft0tsKgDAIBmArbZ0P7/+yERHF/B1JDLrIu8GHuF+p4udFBXk4lz7OP//5ay5iv1D3u4g1GuYySsPZT6U1/urhgDaS2SXSVpAiUJu5Y81U+7oH3+zB0EYywdI492BquNUmlYm+mTaZoLrImKeLOh/vs/IhKx99fPLxOStffHz9EN8Aw/wgV5BHry4AAAAASUVORK5CYII=");
+  background-repeat: no-repeat;
+  border-top-right-radius: 5px; }
+  .ui-dialog-close:hover {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAsCAMAAAAtr3oOAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAOVBMVEX////19fX+/v7y8vX////MzMzz8/Xz8/b09Pb09Pf19ff29vj39/n4+Pn4+Pr5+fr5+fv6+vsAAABAtFMnAAAAA3RSTlPmTOc1ux8eAAAAAWJLR0QSe7xsAAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAIhJREFUSMft0tsKgDAIBmArbZ0P7/+yERHF/B1JDLrIu8GHuF+p4udFBXk4lz7OP//5ay5iv1D3u4g1GuYySsPZT6U1/urhgDaS2SXSVpAiUJu5Y81U+7oH3+zB0EYywdI492BquNUmlYm+mTaZoLrImKeLOh/vs/IhKx99fPLxOStffHz9EN8Aw/wgV5BHry4AAAAASUVORK5CYII="); }
+
+.ui-dialog__hd {
+  position: relative;
+  height: 22px;
+  padding: 12px;
+  border-bottom: 1px solid #f2f2f5;
+  line-height: 22px;
+  background-color: #fff;
+  border-radius: 5px 5px 0 0; }
+
+.ui-dialog__tit {
+  float: left;
+  margin-right: 10px;
+  font-size: 16px;
+  font-weight: 700; }
+
+.ui-dialog__meta {
+  font-size: 12px;
+  color: #999; }
+
+.ui-dialog__bd {
+  background-color: #fff;
+  border-radius: 0 0 5px 5px; }
+
+/*
+ * 带半透明边框dialog
+ * @extend: border
+ */
+.ui-dialog.ext-border {
+  padding: 5px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.2); }
+  .ui-dialog.ext-border .ui-dialog-close {
+    right: 5px; }
+
+/*
+ * @file: 选项卡UI组件
+ * @update: 2015-05-19 13:59:52
+ */
+/*
+ * 默认选项卡
+ * @base
+ */
+.ui-tab__hd {
+  position: relative;
+  margin-bottom: 15px; }
+
+.ui-tab__ext {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -8px; }
+
+.ui-tab__nav {
+  font-size: 0;
+  /* 所有浏览器 */
+  *word-spacing: -1px;
+  /* IE6/7 */
+  border-bottom: 1px solid #dedede; }
+
+@media (-webkit-min-device-pixel-ratio: 0) {
+  .ui-tab__nav {
+    letter-spacing: -5px;
+    /* Safari 5- 等不支持 font-size: 0 的浏览器*/ } }
+
+.ui-tab__trigger {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *display: inline;
+  zoom: 1;
+  vertical-align: top;
+  letter-spacing: normal;
+  word-spacing: normal;
+  margin-right: 3px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+  border: 1px solid #fff;
+  border-: 1px solid #fff;
+  border-bottom: 0;
+  background-color: #fff;
+  overflow: hidden;
+  cursor: pointer; }
+  .ui-tab__trigger.is-active {
+    position: relative;
+    margin-bottom: -1px;
+    padding-bottom: 1px;
+    border-color: #dedede;
+    font-weight: 700; }
+  .ui-tab__trigger a {
+    display: block;
+    padding: 0 15px;
+    color: #333; }
+
+/*
+ * @file: 图片轮播基础UI组件
+ * @update: 2015-05-19 14:00:52
+ */
+/*
+ * 默认图片轮播
+ * @base
+ */
+.ui-slide {
+  position: relative;
+  width: 740px;
+  overflow: hidden; }
+  .ui-slide img {
+    width: 100%;
+    height: 100%; }
+
+.ui-slide__content {
+  position: relative;
+  height: 300px;
+  overflow: hidden; }
+
+.ui-slide__panel {
+  position: relative;
+  width: 740px;
+  height: 300px;
+  overflow: hidden; }
+  .ui-slide__panel a {
+    display: block; }
+
+.ui-slide__mask {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  color: #fff;
+  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.5);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000,endColorstr=#7f000000);
+  zoom: 1;
+  overflow: hidden;
+  padding: 10px 0;
+  text-indent: 10px;
+  font-size: 20px;
+  line-height: 20px; }
+
+.ui-slide__prev, .ui-slide__next {
+  position: absolute;
+  top: 50%;
+  cursor: pointer;
+  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.3);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4c000000,endColorstr=#4c000000);
+  zoom: 1; }
+  .ui-slide__prev .ui-icon, .ui-slide__next .ui-icon {
+    font-size: 24px;
+    color: #fff; }
+  .ui-slide__prev:hover, .ui-slide__next:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000); }
+
+.ui-slide__prev {
+  left: 0; }
+
+.ui-slide__next {
+  right: 0; }
+
+:root .ui-slide__prev, :root .ui-slide__next {
+  filter: none\9; }
+
+/*
+ * 点状导航的图片轮播
+ * @extend: dotted
+ */
+.ui-slide.ext-dotted .ui-slide__nav {
+  position: absolute;
+  bottom: 15px;
+  z-index: 99;
+  width: 100%;
+  text-align: center;
+  font-size: 0;
+  /* 所有浏览器 */
+  *word-spacing: -1px;
+  /* IE6/7 */ }
+.ui-slide.ext-dotted .ui-slide__trigger {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *display: inline;
+  zoom: 1;
+  vertical-align: top;
+  font-size: 12px;
+  letter-spacing: normal;
+  word-spacing: normal;
+  width: 10px;
+  height: 0;
+  padding-top: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-left: 4px;
+  margin-right: 4px;
+  background-color: #ccc; }
+  .ui-slide.ext-dotted .ui-slide__trigger.is-active {
+    background-color: #ff6c00; }
+
+@media (-webkit-min-device-pixel-ratio: 0) {
+  .ui-slide.ext-dotted .ui-slide__nav {
+    letter-spacing: -5px;
+    /* Safari 5- 等不支持 font-size: 0 的浏览器*/ } }
+
+/*
+ * 缩略图导航公共部分
+ * @extend: thumbX/thumbY
+ */
+.ui-slide.ext-thumbX .ui-slide__trigger.is-active .ui-slide__thumbMask, .ui-slide.ext-thumbY .ui-slide__trigger.is-active .ui-slide__thumbMask {
+  border: 3px solid #288ad6;
+  background: 0 0;
+  opacity: 1;
+  filter: alpha(opacity=100); }
+.ui-slide.ext-thumbX .ui-slide__trigger.is-active::after, .ui-slide.ext-thumbY .ui-slide__trigger.is-active::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-width: 8px;
+  border-style: solid; }
+
+.ui-slide__thumbMask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  background: #fff;
+  opacity: .1;
+  filter: alpha(opacity=10); }
+
+/*
+ * 横向缩略图导航
+ * @extend: thumbX
+ */
+.ui-slide.ext-thumbX .ui-slide__nav {
+  *zoom: 1;
+  padding-top: 15px;
+  margin-right: -20px; }
+  .ui-slide.ext-thumbX .ui-slide__nav:before, .ui-slide.ext-thumbX .ui-slide__nav:after {
+    content: "";
+    display: table;
+    line-height: 0; }
+  .ui-slide.ext-thumbX .ui-slide__nav:after {
+    clear: both; }
+.ui-slide.ext-thumbX .ui-slide__trigger {
+  position: relative;
+  float: left;
+  margin-right: 20px;
+  width: 170px;
+  height: 94px;
+  cursor: pointer; }
+  .ui-slide.ext-thumbX .ui-slide__trigger.is-active .ui-slide__thumbMask {
+    width: 164px;
+    height: 88px; }
+  .ui-slide.ext-thumbX .ui-slide__trigger.is-active::after {
+    top: -16px;
+    left: 50%;
+    margin-left: -8px;
+    border-color: transparent transparent #288ad6; }
+.ui-slide.ext-thumbX .ui-slide__thumbMask {
+  width: 170px;
+  height: 94px; }
+
+/*
+ * 纵向缩略图导航
+ * @extend: thumbY
+ */
+.ui-slide.ext-thumbY {
+  height: 300px; }
+  .ui-slide.ext-thumbY .ui-slide__content {
+    float: left;
+    width: 555px;
+    height: 300px; }
+  .ui-slide.ext-thumbY .ui-slide__panel {
+    width: 555px;
+    height: 300px; }
+  .ui-slide.ext-thumbY .ui-slide__nav {
+    overflow: hidden;
+    zoom: 1;
+    padding-left: 15px;
+    margin-bottom: -15px; }
+  .ui-slide.ext-thumbY .ui-slide__trigger {
+    position: relative;
+    float: left;
+    margin-bottom: 15px;
+    width: 170px;
+    height: 90px;
+    cursor: pointer; }
+    .ui-slide.ext-thumbY .ui-slide__trigger.is-active .ui-slide__thumbMask {
+      width: 164px;
+      height: 84px; }
+    .ui-slide.ext-thumbY .ui-slide__trigger.is-active::after {
+      left: -16px;
+      top: 50%;
+      margin-top: -8px;
+      border-color: transparent #288ad6 transparent transparent; }
+  .ui-slide.ext-thumbY .ui-slide__thumbMask {
+    width: 170px;
+    height: 90px; }
+
+/*
+ * @file: 旋转木马基础UI组件
+ * @update: 2015-05-03 14:19:53
+ */
+/*
+ * 默认旋转木马
+ * @base
+ */
+.ui-carousel {
+  position: relative;
+  width: 440px;
+  padding: 0 34px; }
+
+.ui-carousel__scroller {
+  width: 440px;
+  height: 80px;
+  overflow: hidden; }
+
+.ui-carousel__content {
+  width: 100000px !important;
+  /* 修正carousel组件自生成的长度值太大导致低版本IE不显示的bug */
+  height: 80px; }
+
+.ui-carousel__item {
+  float: left;
+  width: 80px;
+  height: 80px;
+  margin-right: 10px; }
+
+.ui-carousel__prev, .ui-carousel__next {
+  position: absolute;
+  top: 0;
+  width: 24px;
+  height: 80px;
+  line-height: 80px;
+  cursor: pointer;
+  text-align: center; }
+  .ui-carousel__prev.is-disabled, .ui-carousel__next.is-disabled {
+    color: #ccc;
+    cursor: default; }
+  .ui-carousel__prev .ui-icon, .ui-carousel__next .ui-icon {
+    font-size: 24px; }
+
+.ui-carousel__prev {
+  left: 0; }
+
+.ui-carousel__next {
+  right: 0; }
+
+.ui-carousel__controller {
+  margin-top: 5px;
+  text-align: center; }
+  .ui-carousel__controller .ui-carousel__prev {
+    margin-right: 5px; }
+
+/*
+ * 纵向旋转木马
+ * @extend: vertical
+ */
+.ui-carousel.ext-vertical {
+  width: 300px;
+  padding: 29px 0; }
+  .ui-carousel.ext-vertical .ui-carousel__content {
+    width: auto !important;
+    height: auto; }
+  .ui-carousel.ext-vertical .ui-carousel__scroller {
+    width: 300px;
+    height: 290px;
+    overflow: hidden; }
+  .ui-carousel.ext-vertical .ui-carousel__item {
+    float: none;
+    width: auto;
+    height: 50px;
+    padding: 5px 0;
+    margin: 0; }
+  .ui-carousel.ext-vertical .ui-carousel__prev, .ui-carousel.ext-vertical .ui-carousel__next {
+    width: 300px;
+    height: 24px;
+    line-height: 24px; }
+  .ui-carousel.ext-vertical .ui-carousel__prev {
+    top: 0;
+    left: 0; }
+  .ui-carousel.ext-vertical .ui-carousel__next {
+    top: auto;
+    right: 0;
+    bottom: 0; }
+
+/*
+ * @file: 手风琴UI组件
+ * @update: 2015-05-02 11:50:42
+ */
+/*
+ * 默认手风琴（horizontal）
+ * @base
+ */
+.ui-accordion {
+  width: 500px; }
+
+.ui-accordion__hd {
+  *zoom: 1;
+  padding: 8px 10px;
+  margin-top: -1px;
+  background-color: #f5f5f5;
+  border: 1px solid #dedede;
+  cursor: pointer; }
+  .ui-accordion__hd:before, .ui-accordion__hd:after {
+    content: "";
+    display: table;
+    line-height: 0; }
+  .ui-accordion__hd:after {
+    clear: both; }
+  .ui-accordion__hd.is-active {
+    background-color: #e7e7e7;
+    cursor: default; }
+
+.ui-accordion__tit {
+  float: left; }
+
+.ui-accordion__ext {
+  float: right; }
+
+.ui-accordion__bd {
+  height: 150px;
+  padding: 10px;
+  border: 1px solid #dedede;
+  border-top-width: 0; }
+
+/*
+ * 纵向手风琴
+ * @extend: vertical
+ */
+.ui-accordion.ext-vertical {
+  *zoom: 1;
+  width: auto; }
+  .ui-accordion.ext-vertical:before, .ui-accordion.ext-vertical:after {
+    content: "";
+    display: table;
+    line-height: 0; }
+  .ui-accordion.ext-vertical:after {
+    clear: both; }
+  .ui-accordion.ext-vertical .ui-accordion__hd {
+    float: left;
+    width: 18px;
+    height: 300px;
+    padding: 10px 8px;
+    margin-top: 0;
+    margin-left: -1px;
+    text-align: center; }
+  .ui-accordion.ext-vertical .ui-accordion__bd {
+    float: left;
+    width: 320px;
+    height: 300px;
+    margin-left: -1px;
+    border-top-width: 1px; }
+
+/*
+ * @file: 轮播文字条基础UI模块
+ * @update: 2015-05-03 14:19:53
+ */
+/*
+ * 默认轮播文字条
+ * @base
+ */
+.ui-marquee {
+  position: relative;
+  height: 22px;
+  padding: 0 30px 0 10px;
+  border: 1px solid #dedede;
+  font-size: 12px;
+  overflow: hidden; }
+
+.ui-marquee__panel {
+  height: 22px;
+  line-height: 22px;
+  overflow: hidden; }
+
+.ui-marquee__prev, .ui-marquee__next {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  opacity: .5; }
+  .ui-marquee__prev:hover, .ui-marquee__next:hover {
+    opacity: 1; }
+
+.ui-marquee__prev {
+  top: -2px; }
+
+.ui-marquee__next {
+  top: 8px; }
+
+/**
+ * @author:    liveme
+ * @update:    2015-01-07 18:28:25
+ * @copyright: 基于 Neat.css | MIT License     
+*/
+/* ==========================================================================
+   基础工具@Basis
+   ========================================================================== */
+/**
+ * 闭合浮动
+ * 1. IE6-7 触发 hasLayout
+ */
+.u-clearfix {
+  *zoom: 1;
+  /* 1 */ }
+  .u-clearfix:before, .u-clearfix:after {
+    content: "";
+    display: table; }
+  .u-clearfix:after {
+    clear: both; }
+
+/* ==========================================================================
+   字体排版工具@Type
+   ========================================================================== */
+/**
+ * 文字溢出显示省略号,需指定宽度
+ * 1. Opera 9-10.6
+ * 2. Chrome 21+ bug https://bugs.webkit.org/show_bug.cgi?id=121902
+ */
+.u-ellipsis {
+  display: block;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  /* 1 */
+  text-overflow: ellipsis;
+  text-align: left;
+  /* 2 */ }
+
+/* 强制不换行 */
+.u-nowrap {
+  white-space: nowrap;
+  word-wrap: normal; }
+
+/* 连续字符换行 */
+.u-wrap {
+  white-space: normal;
+  word-wrap: break-word; }
+
+/**
+ * 禁用中文输入法
+ * 1. 默认关闭输入法，但用户还可以手动开启，Firefox Linux 版不支持。
+ * @note: 仅 IE 5+，Firefox 3+ 支持
+ * @doc:  https://developer.mozilla.org/en-US/docs/Web/CSS/ime-mode
+*/
+.u-imeInactive {
+  ime-mode: inactive !important;
+  /* 1 */ }
+
+/*
+ * OS X 字体平滑
+ * 1. Fiefox 25 开始支持「-moz-osx-font-smoothing:auto(默认)|grayscale」
+ */
+.u-antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* 1 */ }
+
+/* 衬线字体，中文显示宋体 */
+.u-serif {
+  font-family: Georgia, "Times New Roman", Times, SimSun, serif; }
+
+/* 等宽字体 */
+.u-monospace {
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace; }
+
+/* 雅黑字体 */
+.u-yahei {
+  font-family: "Microsoft YaHei", SimHei, "Hiragino Sans GB"; }
+
+/* 文本颜色 */
+.u-txtPrimary {
+  color: #0097d6; }
+
+.u-txtSuccess {
+  color: #7CAE23; }
+
+.u-txtInfo {
+  color: #9ac9e3; }
+
+.u-txtWarning {
+  color: #FF9966; }
+
+.u-txtDanger {
+  color: #e4393c; }
+
+.u-txtGray {
+  color: #999; }
+
+/* 背景颜色 */
+.u-bgPrimary {
+  color: #fff;
+  background-color: #288ad6; }
+
+.u-bgSuccess {
+  color: #fff;
+  background-color: #16c98d; }
+
+.u-bgInfo {
+  color: #fff;
+  background-color: #2fc2ef; }
+
+.u-bgWarning {
+  color: #3b444f;
+  background-color: #feef6d; }
+
+.u-bgDanger {
+  color: #fff;
+  background-color: #fa5e5b; }
+
+/* ==========================================================================
+   布局工具@Layout
+   ========================================================================== */
+/* 浮动 */
+.u-left, .u-right {
+  display: inline; }
+
+.u-left {
+  float: left; }
+
+.u-right {
+  float: right; }
+
+/* 隐藏 */
+.u-hide {
+  display: none; }
+
+/*
+ * display: inline-block;
+ * 1. 针对所有现代浏览器
+ * 2. fixed IE6/7 1px
+ * 3. fixed Safari 5- 等不支持 font-size: 0 的浏览器
+ * 4. 字号大小
+ * @ Usage:  结构如下
+            <div class="u-inbGroup">
+                <span class="u-inb">xxx</span>
+                <span class="u-inb">xxx</span>
+                <span class="u-inb">xxx</span>
+                <span class="u-inb">xxx</span>
+            </div>
+ */
+.u-inbGroup {
+  font-size: 0;
+  /* 1 */
+  *word-spacing: -1px;
+  /* 2 */ }
+
+@media (-webkit-min-device-pixel-ratio: 0) {
+  .u-inbGroup {
+    letter-spacing: -5px;
+    /* 3 */ } }
+
+.u-inb {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+  font-size: 12px;
+  /* 4 */
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: initial; }
+
+/*
+ * 未知高度垂直居中组件，支持图片，单行或多行文字，以及图文混排
+ * 1. 继承父级高度
+ * 2. 保证连续字符也能居中
+ * 3. 防止设置边距导致居中失效
+ * 4. 保证连续字符换行
+ * 5. 保证文字垂直居中
+ * 6. 使用空标签生成一个高度100%的参照元素
+ */
+.u-center {
+  height: 100%;
+  /* 1 */
+  text-align: center;
+  font-size: 0;
+  *word-spacing: -1px; }
+
+@media (-webkit-min-device-pixel-ratio: 0) {
+  .u-center {
+    letter-spacing: -5px; } }
+
+.u-center__inner {
+  width: 100%;
+  /* 2 */
+  padding: 0 !important;
+  /* 3 */
+  margin: 0 !important;
+  font-size: 12px;
+  letter-spacing: normal;
+  word-spacing: normal;
+  white-space: normal;
+  /* 4 */
+  word-wrap: break-word; }
+
+.u-center__inner, .u-center__hack {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+  /* 5 */ }
+
+/* 6 */
+.u-center__hack {
+  width: 0;
+  height: 100%; }
+
+/*
+ *@ Name:   自适应两端对齐组件
+ *@ Update: 2014-12-05 11:02:32
+ *@ Rely:   依赖 inline-block 解决方案
+ *@ Usage:  结构如下
+            <div class="util-justify u-inbGroup">
+                <span class="u-inb">欢</span>
+                <span class="u-inb">聚</span>
+                <span class="u-inb">时</span>
+                <span class="u-inb">代</span>
+            </div>
+    1. for IE 6-7
+    2. IE 6-7 触发 hasLayout 使一行也能两端对齐
+    3. IE 8+
+    4. 子元素取消两端对齐
+    5. 不支持 text-align-last 的浏览器用伪元素模拟
+    6. margin-left:100% 仅 WebKit 支持
+ */
+.u-justify {
+  text-align: justify;
+  text-justify: inter-ideograph;
+  /* 1 */
+  *zoom: 1;
+  /* 2 */
+  line-height: initial;
+  -moz-text-align-last: justify;
+  -webkit-text-align-last: justify;
+  text-align-last: justify;
+  /* 3 */
+  /* 4 */
+  /* 5 */ }
+  .u-justify .u-inb__item {
+    -moz-text-align-last: auto;
+    -webkit-text-align-last: auto;
+    text-align-last: auto;
+    text-justify: auto;
+    text-align: left; }
+  .u-justify:after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    /* 6 */ }
+
+/**
+ * CSS三角形
+ */
+.u-arrow {
+  font-size: 0;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  overflow: hidden;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: -2px;
+  border: 0 dashed transparent;
+  border-width: 6px;
+  /* ◤左上角 */
+  /* ◥右上角 */
+  /* ◣左下角 */
+  /* ◢右下角 */ }
+  .u-arrow.ext-top {
+    border-bottom-style: solid;
+    border-bottom-color: #666; }
+  .u-arrow.ext-bottom {
+    border-top-style: solid;
+    border-top-color: #666; }
+  .u-arrow.ext-left {
+    border-right-style: solid;
+    border-right-color: #666; }
+  .u-arrow.ext-right {
+    border-left-style: solid;
+    border-left-color: #666; }
+  .u-arrow.ext-leftTop {
+    border-top-style: solid;
+    border-top-color: #666;
+    border-left-width: 0 !important; }
+  .u-arrow.ext-rightTop {
+    border-top-style: solid;
+    border-top-color: #666;
+    border-right-width: 0 !important; }
+  .u-arrow.ext-leftBtm {
+    border-bottom-style: solid;
+    border-bottom-color: #666;
+    border-left-width: 0 !important; }
+  .u-arrow.ext-rightBtm {
+    border-bottom-style: solid;
+    border-bottom-color: #666;
+    border-right-width: 0 !important; }
+
+.ui-carousel {
+  margin: 50px auto; }
+
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxlZ28vbm9ybWFsaXplLnNjc3MiLCJsZWdvL2Jhc2Uuc2NzcyIsImxlZ28vdmFyaWFibGUuc2NzcyIsImxlZ28vcHJpbnQuc2NzcyIsImxlZ28vbGlzdC5zY3NzIiwibGVnby9taXhpbnMuc2NzcyIsImxlZ28vYnV0dG9uLnNjc3MiLCJsZWdvL2Zvcm0uc2NzcyIsImxlZ28vdGFibGUuc2NzcyIsImxlZ28vaWNvbi5zY3NzIiwibGVnby91aS5wYW5lbC5zY3NzIiwibGVnby91aS5maWd1cmUuc2NzcyIsImxlZ28vdWkubWVkaWEuc2NzcyIsImxlZ28vdWkucGFnaW5nLnNjc3MiLCJsZWdvL3VpLmJhZGdlLnNjc3MiLCJsZWdvL3VpLnByb2dyZXNzLnNjc3MiLCJsZWdvL3VpLmxpbmVMaXN0LnNjc3MiLCJsZWdvL3VpLmRpYWxvZy5zY3NzIiwibGVnby91aS50YWIuc2NzcyIsImxlZ28vdWkuc2xpZGUuc2NzcyIsImxlZ28vdWkuY2Fyb3VzZWwuc2NzcyIsImxlZ28vdWkuYWNjb3JkaW9uLnNjc3MiLCJsZWdvL3VpLm1hcnF1ZWUuc2NzcyIsImxlZ28vdXRpbGl0eS5zY3NzIiwiZ2xvYmFsLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFVQSxBQUFTLEFBQU8sQUFBUyxBQUFZLEFBQVEsQUFBUSxBQUFRLEFBQVEsQUFBTSxBQUFLLEFBQVM7RUFZckYsQUFBUzs7Ozs7QUFPYixBQUFPLEFBQVE7RUFHWCxBQUFTO0VBQ1QsQUFBVTtFQUNWLEFBQU87Ozs7OztBQVFYLEFBQUssQUFBSztFQUNOLEFBQVM7RUFDVCxBQUFROzs7Ozs7QUFRWjtFQUNJLEFBQVM7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 */
