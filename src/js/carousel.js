@@ -16,7 +16,8 @@ define('carousel',function(require, exports, module){
 			circular:false,
 			autoplay:false,
 			duration: 300,
-			moveDis:0
+			moveDis:0,
+			steps:2
 		}
 		this.config=this._extend(ops);
 		this._init();
@@ -30,17 +31,17 @@ define('carousel',function(require, exports, module){
 	Carousel.prototype._initContent=function(){
 		var direction=this._moveDirection();
 		var dur=this.get('duration','attr');
-		if(this._isSupportCss3){
+		if(this._isSupportCss3()){
 			this.get(this.config.content,'ele').css({
 				'position': 'relative',
 				'transform: ' : 'translate(0,0)',
 				'webkitTransform':'translate(0,0)',
-				'mozTransform':'translate(0,0)',
+				'MozTransform':'translate(0,0)',
 				'msTransform':'translate(0,0)',
 				'transition':'transform ease-in '+ dur/1000 + 's',
-				'webkitTransition':'transform ease-in '+ dur/1000 + 's',
-				'mozTransition':'transform ease-in '+ dur/1000 + 's',
-				'msTransition':'transform ease-in '+ dur/1000 + 's'
+				'webkitTransition':'-webkit-transform ease-in '+ dur/1000 + 's',
+				'MozTransition':'-moz-transform ease-in '+ dur/1000 + 's',
+				'msTransition':'-ms-transform ease-in '+ dur/1000 + 's'
 			})
 		} else{
 			this.get(this.config.content,'ele').css({
@@ -57,22 +58,23 @@ define('carousel',function(require, exports, module){
 	Carousel.prototype._setMoveDis=function(){
 		//找到最多能走几次  以及 最后一步走多少
 		this.config.moveDis=this._getMoveDis(this.config.direction); //确定每一步走多少，以及方向 li的高度或者宽度
-		var direction=this.config.moveDis;
-		var showLen=0;//一屏显示多少个内容
+		var direction=this._moveDirection();
+		var showLen=1 / this.get('steps','attr');//一屏显示多少个内容
 		var disLen=0;
+		var showWH=0;
 		switch(direction){
 			case 'left' :
-				var showW=$(this.config.element).width(); //显示的高度
-				console.log()
-				showLen=showW / this.config.moveDis;
+				showWH=$(this.config.element).width(); //显示的高度
+
+				showLen=showWH / this.config.moveDis;
 				disLen=parseInt(showLen) - showLen //判断是不是整数 向上取整
-				this.config.maxMoveLen=this.get('length','attr') - parseInt($(this.config.element).width() / this.config.moveDis); //最多能走多少步
+				this.config.maxMoveSteps=Math.ceil((this.get('length','attr')  - ($(this.config.element).width() / this.config.moveDis))) / this.get('steps','attr'); //最多能走多少步  总个数 - 显示的多少个
 				break;
 			case 'top' :
-				var showH=$(this.config.element).height(); //显示的高度
-				showLen=showH / this.config.moveDis.dis;
+				showWH=$(this.config.element).height(); //显示的高度
+				showLen=showWH / this.config.moveDis;
 				disLen=parseInt(showLen) - showLen //判断是不是整数 向上取整
-				this.config.maxMoveLen=this.get('length','attr') - parseInt($(this.config.element).height() / this.config.moveDis); //最多能走多少步
+				this.config.maxMoveSteps=Math.ceil((this.get('length','attr') - ($(this.config.element).height() / this.config.moveDis))) / this.get('steps','attr'); //最多能走多少步
 				break;
 		}
 
@@ -81,7 +83,7 @@ define('carousel',function(require, exports, module){
 				this.config.excessDis=0;
 				break;
 			case false :  //非整数的话应该需要走多一步完成剩下的距离
-				this.config.excessDis = Math.ceil(showLen) * this.get('moveDis','attr').dis - showH;
+				this.config.excessDis = this.get('maxMoveSteps','attr') * this.get('moveDis','attr') * this.get('steps','attr') - showWH;
 				break;
 		}
 
@@ -101,60 +103,62 @@ define('carousel',function(require, exports, module){
 		return this;
 	}
 	Carousel.prototype._getMoveDis=function(direction){
+		var child=this.get(this.config.content,'ele').children(0);
 		switch(direction){
 			case 'scrollX' :
-				return: this.get(this.config.content,'ele').children(0).outerWidth();break;
+				return child.outerWidth() + parseInt(child.css('marginLeft')) + parseInt(child.css('marginRight'));break;
 
 			case 'scrollY' :
-				return this.get(this.config.content,'ele').children(0).outerHeight();break;
+				return child.outerHeight() + parseInt(child.css('marginTop')) + parseInt(child.css('marginBottom'));break;
 
 		}
 	}
 	Carousel.prototype.switchTo=function(fromIndex,toIndex){
 		if(fromIndex==toIndex) return;
-		var _this=this;
+		var child=this.get(this.config.content,'ele').children(0);
 		this._upDateDisBtn();
 		var contentBox=this.get(this.config.content,'ele');
-		var disObj=this.get('moveDis','attr');
+		var dis=this.get('moveDis','attr');
 
 		var val=0;
-		switch(disObj.attr){
+		switch(this._moveDirection()){
 			case 'top':
-				if(toIndex == (this.config.maxMoveLen - 1) || toIndex == 0){
+				if(toIndex == (this.config.maxMoveSteps ) || toIndex == 0){
 					console.log('最后一次了')
-					console.log( disObj.dis * ( fromIndex -  toIndex) + this.config.excessDis * (( fromIndex -  toIndex)/Math.abs(( fromIndex -  toIndex))))
 					//距离 * 移动的距离 + 最后一次需要移动的距离 * 方向
 					//方向是用自己/绝对值自己
-					val=(disObj.dis * ( fromIndex -  toIndex) + this.config.excessDis * (( fromIndex -  toIndex)/Math.abs(( fromIndex -  toIndex))));
+					// val=(dis * ( fromIndex -  toIndex) * this.get('steps','attr') + this.config.excessDis * (( fromIndex -  toIndex)/Math.abs(( fromIndex -  toIndex))));
+					val=this.config.excessDis * (( fromIndex -  toIndex)/Math.abs(( fromIndex -  toIndex)))
+					if(val < 0) val= val + parseInt(child.css('marginBottom')); //最后一次的时候，当如果小于0的时候 往左走 应该把右边距忽略掉，这样可以让右边永远跟盒子的右边贴边 本身每次走的时候都会加上自己的边距
 
 				} else{
-					val=disObj.dis * ( fromIndex -  toIndex)
+					val=dis * ( fromIndex -  toIndex) *  this.get('steps','attr')
 				};
-				if(_this._isSupportCss3){
-					_this._css3Move('top',val)
+				if(this._isSupportCss3()){
+					this._css3Move('top',val)
 				} else{
-					_this._css2Move('top',val)
+					this._css2Move('top',val)
 				}
 				break;
 			case 'left':
-				if(toIndex == (this.config.maxMoveLen - 1) || toIndex == 0){
+				if(toIndex == (this.config.maxMoveSteps ) || toIndex == 0){
 					console.log('最后一次了')
-					console.log( disObj.dis * ( fromIndex -  toIndex) + this.config.excessDis * (( fromIndex -  toIndex)/Math.abs(( fromIndex -  toIndex))))
 					//距离 * 移动的距离 + 最后一次需要移动的距离 * 方向
 					//方向是用自己/绝对值自己
-					val=(disObj.dis * ( fromIndex -  toIndex) + this.config.excessDis * (( fromIndex -  toIndex)/Math.abs(( fromIndex -  toIndex))));
+					// val=(dis * ( fromIndex -  toIndex) * this.get('steps','attr') + this.config.excessDis * (( fromIndex -  toIndex)/Math.abs(( fromIndex -  toIndex))));
+					val=this.config.excessDis * (( fromIndex -  toIndex)/Math.abs(( fromIndex -  toIndex)));
+					if(val < 0) val= val + parseInt(child.css('marginRight')); //最后一次的时候，当如果小于0的时候 往左走 应该把右边距忽略掉，这样可以让右边永远跟盒子的右边贴边 本身每次走的时候都会加上自己的边距
 
 				} else{
-					val=disObj.dis * ( fromIndex -  toIndex)
+					val=dis * ( fromIndex -  toIndex) * this.get('steps','attr')
 				};
-				if(_this._isSupportCss3){
-					_this._css3Move('left',val)
+				if(this._isSupportCss3()){
+					this._css3Move('left',val)
 				} else{
-					_this._css2Move('left',val)
+					this._css2Move('left',val)
 				}
 				break;
 		}
-		// console.log(this.get(this.config.element,'ele'))
 		$(this.config.element).attr({
 			activeIndex: toIndex
 		})
@@ -164,7 +168,7 @@ define('carousel',function(require, exports, module){
 		var prevBtn=this.get(this.config.prevBtn,'ele');
 		var nextBtn=this.get(this.config.nextBtn,'ele');
 
-		var len=this.get('maxMoveLen','attr');
+		var len=this.get('maxMoveSteps','attr');
 		var circular=this.get('circular','attr');
 		prevBtn.on('click',function(){
 			var nowIndex=_this.get('activeIndex','attr');
@@ -172,7 +176,6 @@ define('carousel',function(require, exports, module){
 				//不循环的情况
 				_this.set('prevIndex',nowIndex);
 				nowIndex=nowIndex - 1;
-				console.log(nowIndex)
 				nowIndex <  0 ? _this.set('activeIndex',0) : _this.set('activeIndex',nowIndex)
 				_this.switchTo(_this.get('prevIndex','attr') ,_this.get('activeIndex','attr'));
 			}
@@ -183,8 +186,7 @@ define('carousel',function(require, exports, module){
 			if(!circular){
 				_this.set('prevIndex',nowIndex);
 				nowIndex=nowIndex + 1;
-				console.log(nowIndex)
-				nowIndex > (len - 1) ? _this.set('activeIndex',len - 1) : _this.set('activeIndex', nowIndex);
+				nowIndex > (len ) ? _this.set('activeIndex',len ) : _this.set('activeIndex', nowIndex);
 				_this.switchTo(_this.get('prevIndex','attr'),_this.get('activeIndex','attr'));
 			}
 		})
@@ -197,7 +199,7 @@ define('carousel',function(require, exports, module){
 		var circular=this.get('circular','attr');
 		var prevBtn=this.get(this.config.prevBtn,'ele');
 		var nextBtn=this.get(this.config.nextBtn,'ele');
-		var len=this.get('maxMoveLen','attr');
+		var len=this.get('maxMoveSteps','attr');
 		if(!circular){
 			var disBtnClass=_this.get('disableClass','attr');
 			prevBtn.removeClass(disBtnClass);
@@ -212,9 +214,9 @@ define('carousel',function(require, exports, module){
 		}
 	}
 	Carousel.prototype._isSupportCss3=function(){
-		if( 'MozTransform' in document.documentElement.style || 'WebkitTransform' in
-		document.documentElement.style || 'OTransform' in document.documentElement.style
-		|| 'msTransform' in document.documentElement.style){
+		if( 'MozTransition' in document.documentElement.style || 'WebkitTransition' in
+		document.documentElement.style || 'OTransition' in document.documentElement.style
+		|| 'msTransition' in document.documentElement.style){
 
 		return true;
 
@@ -234,7 +236,7 @@ define('carousel',function(require, exports, module){
 			contentBox.css({
 				'transform: ' : 'translate(0,'+ transformVal  +'px)',
 				'webkitTransform':'translate(0,'+ transformVal  +'px)',
-				'mozTransform':'translate(0,'+  transformVal  +'px)',
+				'MozTransform':'translate(0,'+  transformVal  +'px)',
 				'msTransform':'translate(0,'+  transformVal  +'px)'
 			});
 			break;
@@ -243,7 +245,7 @@ define('carousel',function(require, exports, module){
 			contentBox.css({
 				'transform: ' : 'translate('+ transformVal  +'px, 0 )',
 				'webkitTransform':'translate('+ transformVal  +'px, 0)',
-				'mozTransform':'translate('+  transformVal  +'px, 0)',
+				'MozTransform':'translate('+  transformVal  +'px, 0)',
 				'msTransform':'translate('+  transformVal  +'px, 0)'
 			});
 			// contentBox.animate({

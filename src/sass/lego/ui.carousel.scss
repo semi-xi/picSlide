@@ -11,7 +11,7 @@
 $carousel-x-width: 440px; // 主体宽度
 $carousel-x-per-number: 5; // 每一页item个数
 $carousel-x-item-height: 80px; // item高度
-$carousel-x-item-width: 80px; // item宽度
+$carousel-x-item-width: 93px; // item宽度
 $carousel-x-spacing: 10px; // item间距
 $carousel-x-switch-btn-width: 24px; // 翻页按钮宽度
 
@@ -24,6 +24,7 @@ $carousel-x-switch-btn-width: 24px; // 翻页按钮宽度
     width: $carousel-x-per-number*$carousel-x-item-width+($carousel-x-per-number - 1)*$carousel-x-spacing;
     height: $carousel-x-item-height;
     overflow: hidden;
+    position: relative;
 }
 .ui-carousel__content {
     width: 100000px!important; /* 修正carousel组件自生成的长度值太大导致低版本IE不显示的bug */
@@ -74,7 +75,7 @@ $carousel-x-switch-btn-width: 24px; // 翻页按钮宽度
 $carousel-y-width: 300px;  // 主体宽度
 $carousel-y-per-number: 5; // 每一页item个数
 $carousel-y-item-width: 300px; // item宽度
-$carousel-y-item-height: 50px; // item高度
+$carousel-y-item-height: 63px; // item高度
 $carousel-y-spacing: 10px; // item间距
 $carousel-y-switch-btn-height: 24px; // 翻页按钮高度
 
