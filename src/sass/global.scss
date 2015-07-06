@@ -11,3 +11,178 @@
 .ui-carousel{
 	margin:  50px auto;
 }
+// ul{
+// 	@include clearfix;
+// 	width:1000px;
+// 	margin:100px auto;
+// }
+.triangle-box{
+	float: left;
+	margin-right: 10px;
+	position: relative;
+	width:100px;
+	height:100px;
+	// overflow: hidden;
+	border:1px solid #ccc;
+	background: url("") left top no-repeat;
+	background-size: 100% 100%;
+	cursor: pointer;
+	-webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    .tbox{
+    	width:100px;
+    	height:100px;
+    	overflow: hidden;
+    	position: absolute;
+    	left:0px;
+    	top:0px;
+    }
+    a,img{
+    	display:block;
+    	width:100px;
+    	height:100px;
+    }
+    em{
+		line-height: 24px;
+		color:#000;
+		font-size: 12px;
+    }
+	span{
+		position: absolute;
+		width: 0;
+		height: 0;
+		overflow: hidden;
+		border-width:50px;
+		transition: all ease-in .1s;
+		// animation-fill-mode:both;
+		// animation-duration: .1s;
+	}
+	&:hover{
+		span{
+			left:0px;
+			top:0px;
+		}
+		i{
+			// transform: rotateX(0deg);
+			transform:scale(1);
+			opacity: 1;
+		}
+		em{
+			color:red;
+		}
+	}
+	i{
+		transition:  all ease-in .2s;
+	}
+}
+.is-showPlay{
+	.icon-play{
+		transform: rotateX(0deg);
+	}
+}
+.triangle__top{
+	border-style:solid;
+	// border-style:solid dashed dashed dashed;
+	border-color:rgba(0,0,0,0.8) transparent transparent transparent;
+	left:0px;top:-50px;
+}
+.triangle__rig{
+	border-style:solid;
+	// border-style: dashed solid dashed dashed;
+	border-color: transparent rgba(0,0,0,0.8) transparent transparent;
+
+	left:50px;top:0px;
+}
+.triangle__bot{
+	border-style:solid;
+	// border-style: dashed dashed solid dashed;
+	border-color: transparent transparent rgba(0,0,0,0.8) transparent;
+
+	left:0px;top:50px;
+}
+.triangle__left{
+	border-style:solid;
+	// border-style: dashed dashed dashed solid;
+	border-color: transparent transparent transparent rgba(0,0,0,0.8);
+
+	left:-50px;top:0px;
+}
+.icon-play{
+	background-image: url("../img/icon-vplay-big.png");
+	background-size: 100%;
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	left:50%;
+	top:50%;
+	margin-top: -25px;
+	margin-left: -25px;
+	z-index: 22;
+	backface-visibility:hidden;
+	// transform: rotateX(180deg);
+	transform:scale(0.1);
+	opacity:0;
+	// animation-fill-mode:both;
+	// animation-duration: .5s;
+}
+
+
+.animated{
+	animation-fill-mode:both;
+	animation-duration: .5s;
+}
+.showPlay{
+	.icon-play{
+		animation-name :showPlay;
+	}
+
+}
+.hidePlay{
+	.icon-play{
+		animation-name :hidePlay;
+	}
+
+}
+@keyframes showPlay{
+	0{
+		transform: rotateX(180deg);
+	}
+	20%{
+		transform: rotateX(180deg);
+	}
+	100%{
+		transform: rotateX(0deg);
+	}
+}
+
+@keyframes hidePlay{
+	0{
+		transform: rotateX(0deg);
+	}
+	20%{
+		transform: rotateX(0deg);
+	}
+	100%{
+		transform: rotateX(180deg);
+	}
+}
+
+@keyframes showShadow{
+	100%{
+		left:0;
+		top:0px;
+	}
+}
+
+@media screen and (max-width:830px ){
+	#demo1{
+		width:350px;
+	}
+	#demo1  .ui-carousel__scroller{
+		width:350px;
+		margin:0 auto;
+	}
+}

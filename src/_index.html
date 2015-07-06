@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="wrap">
-        <div class="ui-carousel" data-role="carousel-demo1">
+        <div class="ui-carousel" data-role="carousel-demo1" id="demo1">
             <div class="ui-carousel__scroller">
                 <ul class="ui-carousel__content" data-switchable-role="content">
                     <li class="ui-carousel__item">
@@ -54,7 +54,7 @@
             <div class="ui-carousel__scroller">
                 <ul class="ui-carousel__content" data-switchable-role="content">
                     <li class="ui-carousel__item">
-                        <img src="http://ued.yypm.com/300x50x1" alt="">
+                        <img src="http://ued.yypm.com/300x63x1" alt="">
                     </li>
                     <li class="ui-carousel__item">
                         <img src="http://ued.yypm.com/300x63x2" alt="">
@@ -135,11 +135,13 @@
         // console.log(Carousel)
          window.carousel1=new Carousel({
             element: 'div[data-role=carousel-demo1]',
-            direction:'scrollX'
+            direction:'scrollX',
+            autoplay: false
         });
         window.carousel2=new Carousel({
             element: 'div[data-role=carousel-demo2]',
-            direction:'scrollY'
+            direction:'scrollY',
+            autoplay: false
         });
 
         console.log(carousel1)

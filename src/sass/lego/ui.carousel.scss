@@ -45,6 +45,7 @@ $carousel-x-switch-btn-width: 24px; // 翻页按钮宽度
     line-height: $carousel-x-item-height;
     cursor: pointer;
     text-align: center;
+    background-color: red;
     &.is-disabled {
         color: #ccc;
         cursor: default;
