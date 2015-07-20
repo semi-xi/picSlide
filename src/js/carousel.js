@@ -2,6 +2,7 @@ define('carousel', function (require, exports, module) {
     var $ = require("$-debug");
 
     function Carousel(ops) {
+        var _this=this;
         this.config = {
             element: "[data-role='carousel']",
             triggers: "[data-switchable-role='nav']",
@@ -19,7 +20,12 @@ define('carousel', function (require, exports, module) {
             steps: 1,
             autoplayTime: 2000,
             showWH: 0,
-            _timer: null
+            _timer: null,
+            cb:function(){
+                console.log('动画已经结束');
+//                console.log(_this.config);
+               
+            }
         };
         this.config = this._extend(ops);
         this._init();
@@ -37,34 +43,41 @@ define('carousel', function (require, exports, module) {
         this._resize();
     };
     Carousel.prototype._initContent = function () {
-         $(this.config.element).attr('data-index', 0);
-        this.config.length = $(this.config.element).find(this.config.content).children().length;
+        var contentBox = this.get(this.config.content, 'ele');
         var direction = this._moveDirection();
+        
         var dur = this.get('duration', 'attr');
-        if (this._isSupportCss3()) {
-            this.get(this.config.content, 'ele').css({
-                'position': 'relative',
-                'transform: ': 'translate(0,0)',
-                'webkitTransform': 'translate(0,0)',
-                'MozTransform': 'translate(0,0)',
-                'msTransform': 'translate(0,0)',
-                'transition': 'transform ease-in ' + dur / 1000 + 's',
-                'webkitTransition': '-webkit-transform ease-in ' + dur / 1000 + 's',
-                'MozTransition': '-moz-transform ease-in ' + dur / 1000 + 's',
-                'msTransition': '-ms-transform ease-in ' + dur / 1000 + 's'
-            })
-        } else {
+//        if (this._isSupportCss3()) {
+//            this.get(this.config.content, 'ele').css({
+//                'position': 'relative',
+//                'transform: ': 'translate(0,0)',
+//                'webkitTransform': 'translate(0,0)',
+//                'MozTransform': 'translate(0,0)',
+//                'msTransform': 'translate(0,0)',
+//                'transition': 'transform ease-in ' + dur / 1000 + 's',
+//                'webkitTransition': '-webkit-transform ease-in ' + dur / 1000 + 's',
+//                'MozTransition': '-moz-transform ease-in ' + dur / 1000 + 's',
+//                'msTransition': '-ms-transform ease-in ' + dur / 1000 + 's'
+//            })
+//        } else {
             this.get(this.config.content, 'ele').css({
                 'position': 'relative',
                 'left': 0,
                 'top': 0
             });
-        }
+//        }
         if(this.config.circular){
             var html=this.get(this.config.content,'ele').html();
             this.get(this.config.content,'ele').html(html+html);
         }
-        
+        $(this.config.element).attr('data-index', 0);
+        this.config.length = $(this.config.element).find(this.config.content).children().length;
+        console.log(111)
+         //绑定事件要提前加
+        contentBox.on('transitionend',this.config.cb);
+        contentBox.on('webkitTransitionEnd',this.config.cb);
+        contentBox.on('oTransitionEnd',this.config.cb);
+        contentBox.on('MSTransitionEnd',this.config.cb);
     };
     Carousel.prototype._extend = function (ops) {
         return $.extend(this.config, ops);
@@ -145,7 +158,7 @@ define('carousel', function (require, exports, module) {
         var prevBtn = this.get(this.config.prevBtn, 'ele');
         var nextBtn = this.get(this.config.nextBtn, 'ele');
 
-        var len = this.get('maxMoveSteps', 'attr');
+        var maxSteps = this.get('maxMoveSteps', 'attr');
         var circular = this.get('circular', 'attr');
         prevBtn.on('click', function () {
             var nowIndex = $(_this.config.element).attr('data-index');
@@ -164,12 +177,24 @@ define('carousel', function (require, exports, module) {
         });
         nextBtn.on('click', function () {
             var nowIndex = $(_this.config.element).attr('data-index');
-
+//                console.log(22);
 //            if (!circular) {
                 _this.set('prevIndex', nowIndex);
                 nowIndex = parseInt(nowIndex) + 1;
                 if(!circular){
-                    nowIndex = (nowIndex > len ? len : nowIndex);
+                     console.log(nowIndex);
+//                    nowIndex = ((nowIndex > len) ? len : nowIndex);
+//                    nowIndex =( (nowIndex > maxSteps) && maxSteps);
+                    if(nowIndex > maxSteps){
+                        nowIndex= maxSteps
+                    } else{
+                        nowIndex=nowIndex;
+                    }
+                     console.log(nowIndex);
+                }
+                else{
+                    nowIndex = nowIndex % (maxSteps + 1);
+                   
                 }
                 
                 //                console.log(_this.get('nextIndex','attr'))
@@ -212,12 +237,12 @@ define('carousel', function (require, exports, module) {
                 moveVal.top = this._transformVal()[1] - 0 + val;
             }
             //				
-            if (this._isSupportCss3()) {
-
-                this._css3Move('top', moveVal);
-            } else {
+//            if (this._isSupportCss3()) {
+//
+//                this._css3Move('top', moveVal);
+//            } else {
                 this._css2Move('top', moveVal);
-            }
+//            }
             break;
         case 'left':
             if (toIndex === (this.config.maxMoveSteps) || toIndex === 0) {
@@ -229,18 +254,22 @@ define('carousel', function (require, exports, module) {
                 // console.log(333)
                 if (val < 0) moveVal.left = 0;
                 if (val > 0) moveVal.left = -this.config.maxMove + parseInt(child.css('marginRight'));
-                    //					moveVal.left=this._transformVal()[0] - 0 + val;
+                console.log(moveVal.left)
+//                    					moveVal.left=this._transformVal()[0] - 0 + val;
                     //					console.log('结束')
             } else {
                 val = (fromIndex - toIndex) / Math.abs((fromIndex - toIndex)) * dis * this.get('steps', 'attr');
                 moveVal.left = this._transformVal()[0] - 0 + val;
+                console.log($(this.config.element).attr('data-index'))
+                moveVal.left=-$(this.config.element).attr('data-index') * this.config.steps * this.config.moveDis;
             }
                 
-            if (this._isSupportCss3()) {
-                this._css3Move('left', moveVal);
-            } else {
+//            if (this._isSupportCss3()) {
+//                this._css3Move('left', moveVal);
+//            } else {
+                console.log(moveVal)
                 this._css2Move('left', moveVal);
-            }
+//            }
             break;
         }
     };
@@ -250,23 +279,28 @@ define('carousel', function (require, exports, module) {
         var prevBtn = this.get(this.config.prevBtn, 'ele');
         var nextBtn = this.get(this.config.nextBtn, 'ele');
         var len = this.get('maxMoveSteps', 'attr');
+       
         if (!circular) {
+             console.log(22)
             var disBtnClass = _this.get('disableClass', 'attr');
             prevBtn.removeClass(disBtnClass);
             nextBtn.removeClass(disBtnClass);
             var index = $(_this.config.element).attr('data-index');
-            if (index === 0) {
+            console.log(index)
+            if (index == 0) {
+                console.log(22);
                 prevBtn.addClass(disBtnClass);
             }
-            if (index === len - 1) {
+            if (index == len - 1) {
                 nextBtn.addClass(disBtnClass);
             }
         }
     };
     Carousel.prototype._isSupportCss3 = function () {
+        
         if ('MozTransition' in document.documentElement.style || 'WebkitTransition' in
             document.documentElement.style || 'OTransition' in document.documentElement.style || 'msTransition' in document.documentElement.style) {
-
+           
             return true;
 
         } else {
@@ -295,24 +329,53 @@ define('carousel', function (require, exports, module) {
                 'msTransform': 'translate(' + val.left + 'px, 0)'
             });
         }
+        
     };
     Carousel.prototype._css2Move = function (direction, val) {
         var contentBox = this.get(this.config.content, 'ele');
+//        if(this.config.nextIndex == 5){
+//            console.log(val)
+//        }
         var dur = this.get('duration', 'attr');
         switch (direction) {
         case 'top':
-            contentBox.animate({
+            contentBox.stop().animate({
                 'top': val.top + 'px'
-            }, dur);
+            }, dur,this.config.cb);
             break;
         case 'left':
-            contentBox.animate({
+            contentBox.stop().animate({
                 'left': val.left + 'px'
-            }, dur);
+            }, dur,this.config.cb);
             break;
         }
 
     };
+    Carousel.prototype._moveClasBack=function(){
+        this.config.cb && this.config.cb();
+         var index=$(_this.config.element).attr('data-index');
+        var maxLen=_this.config.length;
+        console.log(index,maxLen);
+        if(this.config.circular)
+        if(index == maxLen/2){
+            console.log(_this.config.prevIndex,_this.config.nextIndex);
+            var child = _this.get(_this.config.content, 'ele').children(0);
+            if(_this.config.prevIndex - _this.config.nextIndex < 0){
+                console.log('111');
+//                        _this.get(_this.config.content, 'ele').css({
+//                            'webkitTransition':'none',
+//                            'MozTransition':'none',
+//                            'msTransition':'none'
+//                        })
+//                        _this._css2Move('left',{left:0});
+                _this.get(_this.config.content, 'ele').css('left',0);
+                $(_this.config.element).attr('data-index',0);
+            } else{
+                _this.get(_this.config.content, 'ele').css('left',{left:-_this.config.maxMove + child.css('marginRight')} );
+            }
+            console.log('到头');
+        }
+    }
     Carousel.prototype._moveDirection = function () {
         var direction = this.get('direction', 'attr');
         switch (direction) {
@@ -325,20 +388,20 @@ define('carousel', function (require, exports, module) {
     Carousel.prototype._transformVal = function () {
         var reg = /\-?[0-9]+/g;
         var contentBox = this.get(this.config.content, 'ele');
-        if (this._isSupportCss3()) {
-            switch (true) {
-            case 'WebkitTransform' in document.documentElement.style:
-                return contentBox[0].style.webkitTransform.match(reg);
-            case 'MozTransform' in document.documentElement.style:
-                return contentBox[0].style.webkitTransform.match(reg);
-            case 'OTransform' in document.documentElement.style:
-                return contentBox[0].style.webkitTransform.match(reg);
-            case 'msTransform' in document.documentElement.style:
-                return contentBox[0].style.webkitTransform.match(reg);
-            }
-        } else {
+//        if (this._isSupportCss3()) {
+//            switch (true) {
+//            case 'WebkitTransform' in document.documentElement.style:
+//                return contentBox[0].style.webkitTransform.match(reg);
+//            case 'MozTransform' in document.documentElement.style:
+//                return contentBox[0].style.webkitTransform.match(reg);
+//            case 'OTransform' in document.documentElement.style:
+//                return contentBox[0].style.webkitTransform.match(reg);
+//            case 'msTransform' in document.documentElement.style:
+//                return contentBox[0].style.webkitTransform.match(reg);
+//            }
+//        } else {
             return [contentBox.position().left, contentBox.position().top];
-        }
+//        }
 
     };
     Carousel.prototype._setAutoPlay = function () {
@@ -384,7 +447,7 @@ define('carousel', function (require, exports, module) {
                 if (oriVal != newVal) {
                     _this.config.showWH = newVal;
                     _this._setMoveDis();
-                    var curVal = Math.abs(_this._transformVal()[0]);
+//                    var curVal = Math.abs(_this._transformVal()[0]);
                     _this._findNearSteps(curVal);
                     oriVal = newVal;
                 }

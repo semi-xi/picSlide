@@ -1,6 +1,6 @@
 .rotate{
-	perspective: 300px;
-	-webkit-perspective:300px;
+	perspective: 1300px;
+	-webkit-perspective:1300px;
 	-webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
     -ms-transform-style: preserve-3d;
@@ -8,7 +8,7 @@
     transform-style: preserve-3d;
     width: 280px;
     height: 158px;
-    transition:all ease 2s;
+    transition:all ease .5s;
     // backface-visibility: hidden;
     &:hover{
     	transform: rotateX(180deg);
@@ -55,7 +55,7 @@ ul{
 	    transform-style: preserve-3d;
 	    width: 280px;
 	    height: 158px;
-	    transition:all ease 2s;
+	    transition:all ease .5s;
 	    font-size: 0px;
 	    // backface-visibility: hidden;
 	    &:hover{
