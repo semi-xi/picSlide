@@ -72,7 +72,6 @@ define('carousel', function (require, exports, module) {
         }
         $(this.config.element).attr('data-index', 0);
         this.config.length = $(this.config.element).find(this.config.content).children().length;
-        console.log(111)
          //绑定事件要提前加
         contentBox.on('transitionend',this.config.cb);
         contentBox.on('webkitTransitionEnd',this.config.cb);
@@ -89,34 +88,38 @@ define('carousel', function (require, exports, module) {
         this.config.showWH=this._findWH(); //显示区域的宽度或者高度
         this.config.moveDis = this._getMoveDis(this.config.direction); //确定每一步走多少，以及方向 li的高度或者宽度
         var direction = this._moveDirection();
-        var showLen = 1 / this.get('steps', 'attr'); //一屏显示多少个内容
+        var showLen = (this.config.showWH +this._findMargin())/ (this.config.moveDis * this.config.steps ); //一屏显示多少个内容
         var disLen = 0;
         var isEqual=this._findMargin(); //获取 marginTop/marginleft
+//        console.log(showLen)
         switch (direction) {
         case 'left':
 //            this.config.showWH = $(this.config.element).width(); //显示的高度
-            showLen = this.config.showWH / this.config.moveDis;
-            disLen = parseInt(showLen) - showLen; //判断是不是整数 向上取整
+           
+//            disLen = parseInt(showLen) - showLen; //判断是不是整数 向上取整
 
-            this.config.maxMoveSteps = Math.ceil(Math.ceil((this.get('length', 'attr') - ($(this.config.element).width() / this.config.moveDis))) / this.get('steps', 'attr')); //最多能走多少步  总个数 - 显示的多少个
+            this.config.maxMoveSteps = Math.ceil(Math.ceil((this.get('length', 'attr') - ((this.config.showWH + this._findMargin())/ (this.config.moveDis)))) / this.get('steps', 'attr')); //最多能走多少步  总个数 - 显示的多少个
             break;
         case 'top':
 //            this.config.showWH = $(this.config.element).height(); //显示的高度
-            showLen = this.config.showWH / this.config.moveDis;
-            disLen = parseInt(showLen) - showLen; //判断是不是整数 向上取整
+//            showLen = this.config.showWH / this.config.moveDis;
+//            disLen = parseInt(showLen) - showLen; //判断是不是整数 向上取整
             this.config.maxMoveSteps = Math.ceil(Math.ceil((this.get('length', 'attr') - ($(this.config.element).height() / this.config.moveDis))) / this.get('steps', 'attr')); //最多能走多少步
             break;
         }
 
         //找到最后一步需要走多少
         var _screenShowLen = Math.ceil(this.config.showWH / (this.config.moveDis * this.get('steps', 'attr')));
-        switch (disLen === 0) { //判断是不是整数
-        case true: //整数的话最后一步不需要走
-            this.config.excessDis = 0;
+        console.log((showLen + this.config.maxMoveSteps),(this.get('length','attr') / 2))
+        switch ((showLen + this.config.maxMoveSteps) == (this.get('length','attr') / 2)) { //判断是不是整数
+        case true: // 这样代表最后一步可以走完 
+                console.log(22);
+            this.config.excessDis = this.get('moveDis','attr') * this.get('steps','attr') + 10;
             break;
         case false: //非整数的话应该需要走多一步完成剩下的距离
+            
             this.config.excessDis = _screenShowLen * this.get('moveDis', 'attr') * this.get('steps', 'attr') - this.config.showWH;
-            if(isEqual === this.config.excessDis){
+            if(isEqual == this.config.excessDis){
                 console.log('is equal');
                 this.config.excessDis=this.get('moveDis', 'attr') * this.get('steps', 'attr') + this.config.excessDis;
             this.config.maxMoveSteps=this.config.maxMoveSteps - 1;
@@ -182,15 +185,13 @@ define('carousel', function (require, exports, module) {
                 _this.set('prevIndex', nowIndex);
                 nowIndex = parseInt(nowIndex) + 1;
                 if(!circular){
-                     console.log(nowIndex);
 //                    nowIndex = ((nowIndex > len) ? len : nowIndex);
 //                    nowIndex =( (nowIndex > maxSteps) && maxSteps);
                     if(nowIndex > maxSteps){
-                        nowIndex= maxSteps
+                        nowIndex= maxSteps;
                     } else{
                         nowIndex=nowIndex;
                     }
-                     console.log(nowIndex);
                 }
                 else{
                     nowIndex = nowIndex % (maxSteps + 1);
@@ -281,14 +282,11 @@ define('carousel', function (require, exports, module) {
         var len = this.get('maxMoveSteps', 'attr');
        
         if (!circular) {
-             console.log(22)
             var disBtnClass = _this.get('disableClass', 'attr');
             prevBtn.removeClass(disBtnClass);
             nextBtn.removeClass(disBtnClass);
             var index = $(_this.config.element).attr('data-index');
-            console.log(index)
             if (index == 0) {
-                console.log(22);
                 prevBtn.addClass(disBtnClass);
             }
             if (index == len - 1) {
@@ -356,12 +354,11 @@ define('carousel', function (require, exports, module) {
          var index=$(_this.config.element).attr('data-index');
         var maxLen=_this.config.length;
         console.log(index,maxLen);
-        if(this.config.circular)
-        if(index == maxLen/2){
+        if(this.config.circular && index == maxLen/2){
             console.log(_this.config.prevIndex,_this.config.nextIndex);
             var child = _this.get(_this.config.content, 'ele').children(0);
-            if(_this.config.prevIndex - _this.config.nextIndex < 0){
-                console.log('111');
+//            if(_this.config.prevIndex - _this.config.nextIndex < 0){
+//                console.log('111');
 //                        _this.get(_this.config.content, 'ele').css({
 //                            'webkitTransition':'none',
 //                            'MozTransition':'none',
@@ -370,9 +367,9 @@ define('carousel', function (require, exports, module) {
 //                        _this._css2Move('left',{left:0});
                 _this.get(_this.config.content, 'ele').css('left',0);
                 $(_this.config.element).attr('data-index',0);
-            } else{
-                _this.get(_this.config.content, 'ele').css('left',{left:-_this.config.maxMove + child.css('marginRight')} );
-            }
+//            } else{
+//                _this.get(_this.config.content, 'ele').css('left',{left:-_this.config.maxMove + child.css('marginRight')} );
+//            }
             console.log('到头');
         }
     }
