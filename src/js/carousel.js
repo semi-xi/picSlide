@@ -21,7 +21,7 @@ define('carousel', function (require, exports, module) {
             autoplayTime: 2000,
             showWH: 0,
             _timer: null,
-            cb:function(){
+            callback:function(){
                 console.log('动画已经结束');
 //                console.log(_this.config);
                
@@ -260,7 +260,7 @@ define('carousel', function (require, exports, module) {
                     //					console.log('结束')
             } else {
                 val = (fromIndex - toIndex) / Math.abs((fromIndex - toIndex)) * dis * this.get('steps', 'attr');
-                moveVal.left = this._transformVal()[0] - 0 + val;
+//                moveVal.left = this._transformVal()[0] - 0 + val;
                 console.log($(this.config.element).attr('data-index'))
                 moveVal.left=-$(this.config.element).attr('data-index') * this.config.steps * this.config.moveDis;
             }
@@ -334,23 +334,33 @@ define('carousel', function (require, exports, module) {
 //        if(this.config.nextIndex == 5){
 //            console.log(val)
 //        }
+        var _this=this;
         var dur = this.get('duration', 'attr');
+        var index=$(this.config.element).attr('data-index');
         switch (direction) {
         case 'top':
             contentBox.stop().animate({
                 'top': val.top + 'px'
-            }, dur,this.config.cb);
+            }, dur,function(){
+                _this._moveClasBack(_this);
+            });
             break;
         case 'left':
             contentBox.stop().animate({
                 'left': val.left + 'px'
-            }, dur,this.config.cb);
+            }, dur,function(){
+                _this._moveClasBack(_this);
+            });
             break;
         }
 
     };
-    Carousel.prototype._moveClasBack=function(){
-        this.config.cb && this.config.cb();
+    Carousel.prototype._moveClasBack=function(_this){
+//        this.config.cb && this.config.cb();
+        console.log(_this)
+//        if(this.config.cb){
+//            this.config.cb();
+//        }
          var index=$(_this.config.element).attr('data-index');
         var maxLen=_this.config.length;
         console.log(index,maxLen);
