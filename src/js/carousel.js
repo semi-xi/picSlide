@@ -131,9 +131,14 @@ define('carousel', function (require, exports, module) {
             if(_this.config._isMove) return;
             var index=$(_this.config.element).attr('data-index')-0;
             _this.config._isMove=true;
-             if(_this.config.nowDirection!='right'){
+            
+            if(_this.config.nowDirection!='right'){
+                if(_this.config.nowDirection==''){
+                    _this.config.directionChange=false;
+                }else{
+                    _this.config.directionChange=true;
+                }
                 _this.config.nowDirection='right';
-                _this.config.directionChange=true;
             }else{
                 _this.config.directionChange=false;
             }
@@ -264,6 +269,7 @@ define('carousel', function (require, exports, module) {
                             }
                         }
                     } else{
+
                         if(_this._isSupportCss3()){
                             var transofrmVal=_this._transformVal();
                             _this._css3Move(transofrmVal[0] - 0 + _this.config.viewSize * _this.config.steps);
@@ -337,10 +343,10 @@ define('carousel', function (require, exports, module) {
             case 'left':
                 //采取一种极端一点的办法
                 // 一般来说left都是大于0的 当它小于0的时候往左的时候我们可以忽略1次移动
-                if(index >=0){
-                    if(this.config.directionChange){
-                        return ;
-                    } else{
+                if(this.config.directionChange){
+                    return;
+                } else{
+                    if(index >=0){
                         var baseDomIndex=((index-2)*this.config.steps)%this.config.length;
                         for( var i = baseDomIndex  ; i <baseDomIndex+this.config.steps;i++ ){
                             var domIndex=i;
@@ -354,10 +360,6 @@ define('carousel', function (require, exports, module) {
                                 left:nL+(_this.config.length * this.config.viewSize) 
                             })
                         }
-                    }
-                } else{
-                    if(this.config.directionChange){
-                        return ;
                     } else{
                         var baseDomIndex=(_this.config.length-((Math.abs(index)+2)*_this.config.steps)) %_this.config.length;
                         if(baseDomIndex < 0) {
@@ -378,13 +380,16 @@ define('carousel', function (require, exports, module) {
                         }
                     }
                 }
+                    
                 break;
             case 'right' :
-                    if(index <= 0){
-                        if(this.config.directionChange){
-                            return ;
-                        }else{
-                             var baseDomIndex=(_this.config.length-(Math.abs(index)*_this.config.steps)) %_this.config.length;
+                    if(this.config.directionChange){
+                        return;
+                    } else{
+
+                        if(index <= 0){
+
+                            var baseDomIndex=(_this.config.length-(Math.abs(index)*_this.config.steps)) %_this.config.length;
                             if(baseDomIndex < 0) {
                                 baseDomIndex=_this.config.length+baseDomIndex;
                             }
@@ -401,13 +406,11 @@ define('carousel', function (require, exports, module) {
                                     left:nL-(_this.config.length * this.config.viewSize) 
                                 })
                             }
-                        }
-                           
-                    } else{
-                        if(this.config.directionChange){
-                            return ;
+                            
+                               
                         } else{
-                             if(index >=0){
+
+                             if(index >0){
                                 var baseDomIndex=((index)*this.config.steps)%this.config.length;
                                 for( var i = baseDomIndex  ; i <baseDomIndex+this.config.steps;i++ ){
                                     
@@ -423,9 +426,10 @@ define('carousel', function (require, exports, module) {
                                     })
                                 }
                             }
+                           
                         }
-                       
                     }
+                        
                 break;
             default:
                 break;
