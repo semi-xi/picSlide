@@ -75,9 +75,9 @@ item存放的位置 默认`[[data-carousel='content']]`
 
 ### opstions一览
 
-```json
+```
 {
-	element: "[data-role='carousel']",
+    element: "[data-role='carousel']",
     content: "[data-carousel='content']",
     prevBtn: "[data-carousel='prev']",
     nextBtn: "[data-carousel='next']",
