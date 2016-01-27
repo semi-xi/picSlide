@@ -5,26 +5,22 @@ define('carousel', function (require, exports, module) {
         var _this=this;
         this.config = {
             element: "[data-role='carousel']",
-            triggers: "[data-switchable-role='nav']",
-            content: "[data-switchable-role='content']",
-            prevBtn: "[data-switchable-role='prev']",
-            nextBtn: "[data-switchable-role='next']",
+            content: "[data-carousel='content']",
+            prevBtn: "[data-carousel='prev']",
+            nextBtn: "[data-carousel='next']",
             disableClass: "carousel-disBtn",
-            prevIndex: 0,
-            nextIndex: 0,
             direction: 'scrollX',
             circular: false,
-            autoplay: false,
             duration: 300,
-            moveDis: 0,
             steps: 1,
-            autoplayTime: 2000,
-            showWH: 0,
-            _timer: null,
             _isMove:false,
+            easing:'linear',
+            css3:false,
             callback:function(){
-                console.log('动画已经结束');
-            },
+                ops.cb && ops.cb();
+                // console.log('动画已经结束');
+                _this.config._isMove=false;
+            }
             
         };
         this.config = this._extend(ops);
@@ -47,36 +43,31 @@ define('carousel', function (require, exports, module) {
         var direction = this._moveDirection();
         
         var dur = this.get('duration', 'attr');
-        switch (this.config.direction) {
-            case 'scrollX':
-                this.config.showWH=contentBox.parent().width();
-                break;
-            case 'scrollY':
-                this.config.showWH=contentBox.parent().height();
-                break;
-            default:
-                // statements_def
-                break;
-        }
-       // if (this._isSupportCss3()) {
-       //     this.get(this.config.content, 'ele').css({
-       //         'position': 'relative',
-       //         'transform: ': 'translate(0,0)',
-       //         'webkitTransform': 'translate(0,0)',
-       //         'MozTransform': 'translate(0,0)',
-       //         'msTransform': 'translate(0,0)',
-       //         'transition': 'transform ease-in ' + dur / 1000 + 's',
-       //         'webkitTransition': '-webkit-transform ease-in ' + dur / 1000 + 's',
-       //         'MozTransition': '-moz-transform ease-in ' + dur / 1000 + 's',
-       //         'msTransition': '-ms-transform ease-in ' + dur / 1000 + 's'
-       //     })
-       // } else {
+        var _this=this;
+       if (this._isSupportCss3() && this.config.css3) {
+           this.get(this.config.content, 'ele').css({
+               'position': 'relative',
+               'transform: ': 'translate(0,' + 0 + 'px)',
+                'webkitTransform': 'translate(0,' + 0 + 'px)',
+                'MozTransform': 'translate(0,' + 0 + 'px)',
+                'msTransform': 'translate(0,' + 0 + 'px)',
+               'transition': 'transform '+_this.config.easing+' ' + dur / 1000 + 's',
+               'webkitTransition': '-webkit-transform '+_this.config.easing+' ' + dur / 1000 + 's',
+               'MozTransition': '-moz-transform '+_this.config.easing+' ' + dur / 1000 + 's',
+               'msTransition': '-ms-transform '+_this.config.easing+' ' + dur / 1000 + 's'
+           })
+           //绑定事件要提前加
+            contentBox.on('transitionend',_this.config.callback);
+            contentBox.on('webkitTransitionEnd',_this.config.callback);
+            contentBox.on('oTransitionEnd',_this.config.callback);
+            contentBox.on('MSTransitionEnd',_this.config.callback);
+       } else {
             this.get(this.config.content, 'ele').css({
                 'position': 'relative',
                 'left': 0,
                 'top': 0
             });
-       // }
+       }
         $(this.config.element).attr('data-index', 0);
         this.config.length = $(this.config.element).find(this.config.content).children().length;
         this.config.maxShowSteps=parseInt($(this.config.element).find(this.config.content).parent().width() / this.config.viewSize); //最多显示多少个
@@ -84,21 +75,11 @@ define('carousel', function (require, exports, module) {
             throw "the content lenth is to short!the length must greater than steps plus showLength" 
         }
         // 需要补位
-        //(length - wh) / steps
         this.config.canMoveSteps=parseInt((this.config.length-this.config.maxShowSteps)/this.config.steps); //补位
-        // console.log(this.config.canMoveSteps)
-        //第1次需要移动多少个元素
-        //(length - showLength) % steps
-        // this.config.needMoveDom=(this.config.length-this.config.maxShowSteps)% this.config.steps == 0 ? this.config.steps : (this.config.length-this.config.maxShowSteps)% this.config.steps;
         
-        // 判断需要第几次复位
-        // this.config.backPos=Math.ceil(this.config.length / this.config.steps);
-        // console.log(this.config.backPos)
-         //绑定事件要提前加
-        // contentBox.on('transitionend',this.config.cb);
-        // contentBox.on('webkitTransitionEnd',this.config.cb);
-        // contentBox.on('oTransitionEnd',this.config.cb);
-        // contentBox.on('MSTransitionEnd',this.config.cb);
+        
+        
+         
         this.config.nowDirection='';
     };
     Carousel.prototype._extend = function (ops) {
@@ -118,9 +99,6 @@ define('carousel', function (require, exports, module) {
         this.config[attr] = val;
         return this;
     }
-    Carousel.prototype._getMoveDis = function (direction) {
-        
-    };
    
     Carousel.prototype._bindTrigger = function () {
         var _this = this;
@@ -162,16 +140,12 @@ define('carousel', function (require, exports, module) {
             if(_this.config.circular){
                 --index;
             }else{
-                index=0;
+                index=--index<=0 ? 0 : index;
             }
             _this._css2Move(index,'right')
             $(_this.config.element).attr('data-index',index)
         })
 
-    };
-     Carousel.prototype.switchTo = function (toIndex) {
-        var direction=this._findWH();
-        _this._css2Move(toIndex)
     };
     Carousel.prototype._upDateDisBtn = function () {
         
@@ -182,24 +156,22 @@ define('carousel', function (require, exports, module) {
             document.documentElement.style || 'OTransition' in document.documentElement.style || 'msTransition' in document.documentElement.style )&&this.config.css3) {
            
             return true;
-
         } else {
 
             return false;
 
         }
     };
-    Carousel.prototype._css3Move = function (direction, val) {
+    Carousel.prototype._css3Move = function (val) {
         var contentBox = this.get(this.config.content, 'ele');
-        var dur = this.get('duration', 'attr');
-        console.log(dur)
-        switch (direction) {
+        var dur = this._moveDirection();
+        switch (dur) {
         case 'top':
             contentBox.css({
-                'transform: ': 'translate(0,' + val.top + 'px)',
-                'webkitTransform': 'translate(0,' + val.top + 'px)',
-                'MozTransform': 'translate(0,' + val.top + 'px)',
-                'msTransform': 'translate(0,' + val.top + 'px)'
+                'transform: ': 'translate(0,' + val + 'px)',
+                'webkitTransform': 'translate(0,' + val + 'px)',
+                'MozTransform': 'translate(0,' + val + 'px)',
+                'msTransform': 'translate(0,' + val + 'px)'
             });
             break;
         case 'left':
@@ -219,42 +191,92 @@ define('carousel', function (require, exports, module) {
         var dur = this.get('duration', 'attr');
         this._detailPos(index,direction)
         switch (this.config.direction) {
-        case 'scrollY':
-           
+        case 'scrollY':           
             break;
         case 'scrollX':
             switch (direction) {
                 case 'left':
                     if(!_this.config.circular && index == _this.config.canMoveSteps+1){
-                        // if(_this._isSupportCss3()){
+                        //(不循环的时候显示的最大距离 是长度 - 最大显示个数) * 步长
 
-                        // }else{
+                        if(_this._isSupportCss3()){
+                            var transofrmVal=_this._transformVal();
+                            //当达到最大值的时候，就不需要执行动画了，要不然那个isMove的函数一直无法恢复为false;
+                            if(transofrmVal[0]== (-(_this.config.length-_this.config.maxShowSteps)* _this.config.viewSize)) {
+                                _this.config._isMove=false;
+                                return;
+                            }
+                            
+                            _this._css3Move(-(_this.config.length-_this.config.maxShowSteps)* _this.config.viewSize)
+                        }else{
                             contentBox.stop().animate({
                                 left:-(_this.config.length-_this.config.maxShowSteps)* _this.config.viewSize
                             }, dur,function(){
                                 _this.config._isMove=false;
+                                _this.config.callback && _this.config.callback();
                             });
-                        // }
+                        }
                        
                     }else{
-                        // if(_this._isSupportCss3()){
-                            
-                        // }else{
+                        if(_this._isSupportCss3()){
+                            var transofrmVal=_this._transformVal();
+                            _this._css3Move(transofrmVal[0] - _this.config.viewSize * _this.config.steps)
+                        }else{
                             contentBox.stop().animate({
                                 left:'+='+(-_this.config.viewSize * _this.config.steps)
                             }, dur,function(){
                                 _this.config._isMove=false;
+                                _this.config.callback && _this.config.callback();
                             });
-                        // }
+                        }
                     }
                     
                     break;
                     case 'right':
-                    contentBox.stop().animate({
-                        left:'+='+(_this.config.viewSize * _this.config.steps)
-                    }, dur,function(){
-                        _this.config._isMove=false;
-                    });
+                    if(!_this.config.circular ) {
+                        if(index == 0 ){
+                            if(_this._isSupportCss3()){
+                                var transofrmVal=_this._transformVal();
+                                if(transofrmVal[0]==0){
+                                    _this.config._isMove=false;
+                                    return ;
+                                }else{
+                                     _this._css3Move(0);
+                                }
+                               
+                            }else{
+                                contentBox.stop().animate({
+                                    left:0
+                                }, dur,function(){
+                                    _this.config._isMove=false;
+                                });
+                            }
+                        }else{
+                            if(_this._isSupportCss3()){
+                                var transofrmVal=_this._transformVal();
+                                _this._css3Move(transofrmVal[0] - 0 + _this.config.viewSize * _this.config.steps);
+                            }else{
+                                contentBox.stop().animate({
+                                    left:'+='+(_this.config.viewSize * _this.config.steps)
+                                }, dur,function(){
+                                    _this.config._isMove=false;
+                                });
+                            }
+                        }
+                    } else{
+                        if(_this._isSupportCss3()){
+                            var transofrmVal=_this._transformVal();
+                            _this._css3Move(transofrmVal[0] - 0 + _this.config.viewSize * _this.config.steps);
+                        }else{
+                            contentBox.stop().animate({
+                                left:'+='+(_this.config.viewSize * _this.config.steps)
+                            }, dur,function(){
+                                _this.config._isMove=false;
+                            });
+                        }
+                    };
+                        
+                    
                 default:
                     // statements_def
                     break;
@@ -284,14 +306,10 @@ define('carousel', function (require, exports, module) {
            case 'WebkitTransform' in document.documentElement.style:
                return contentBox[0].style.webkitTransform.match(reg);
            case 'MozTransform' in document.documentElement.style:
-               return contentBox[0].style.webkitTransform.match(reg);
-           case 'OTransform' in document.documentElement.style:
-               return contentBox[0].style.webkitTransform.match(reg);
+               return contentBox[0].style.mozTransform.match(reg);
            case 'msTransform' in document.documentElement.style:
-               return contentBox[0].style.webkitTransform.match(reg);
+               return contentBox[0].style.msTransform.match(reg);
            }
-       } else {
-            return [contentBox.position().left, contentBox.position().top];
        }
 
     };
@@ -306,28 +324,7 @@ define('carousel', function (require, exports, module) {
             case 'top':
                 return $(this.config.element).height();
             }
-        };
-    Carousel.prototype._findNearSteps = function (curVal) {
-            //当前的移动距离 
-            var steps = 0;
-            var arr = [];
-            for (var i = 0; i <= this.config.maxShowSteps; i++) {
-                arr[i] = {
-                    steps: i,
-                    val: i * this.config.steps * this.config.moveDis - curVal
-                };
-            }
-            arr.sort(function (n1, n2) {
-                return n2.val - n1.val;
-            });
-            if (arr[0].steps > 0) {
-                this.switchTo(arr[0].steps - 1, arr[0].steps);
-                $(this.config.element).attr('data-index', arr[0].steps);
-            } else {
-                this.switchTo(0, 0);
-                $(this.config.element).attr('data-index', 0);
-            }
-        };
+    };
     Carousel.prototype._detailPos = function(index,direction){
         var content=this.get(this.config.content,'ele');
         var _this=this;
@@ -347,9 +344,9 @@ define('carousel', function (require, exports, module) {
                         var baseDomIndex=((index-2)*this.config.steps)%this.config.length;
                         for( var i = baseDomIndex  ; i <baseDomIndex+this.config.steps;i++ ){
                             var domIndex=i;
-
-                            if(i==this.config.length){
-                                domIndex=0;
+                            
+                            if(i>=this.config.length){
+                                domIndex=i%this.config.length;
                             }
                             var nL=content.children().eq(domIndex).css('left')=='auto' ? 0 : parseInt(content.children().eq(domIndex).css('left'));
                             content.children().eq(domIndex).css({
@@ -369,8 +366,8 @@ define('carousel', function (require, exports, module) {
                         
                         for(var i= baseDomIndex  ;i< baseDomIndex+_this.config.steps;i++){
                             var domIndex = i;
-                            if(i==_this.config.length){
-                                domIndex=0;
+                            if(i>=this.config.length){
+                                domIndex=i%this.config.length;
                             }
                             var nL=content.children().eq(domIndex).css('left')=='auto' ? 0 : parseInt(content.children().eq(domIndex).css('left'));
                             
@@ -384,36 +381,40 @@ define('carousel', function (require, exports, module) {
                 break;
             case 'right' :
                     if(index <= 0){
-                        var baseDomIndex=(_this.config.length-(Math.abs(index)*_this.config.steps)) %_this.config.length;
-                        if(baseDomIndex < 0) {
-                            baseDomIndex=_this.config.length+baseDomIndex;
-                        }
-                        
-                        for(var i= baseDomIndex  ;i< baseDomIndex+_this.config.steps;i++){
-                            var domIndex = i;
-                            if(i==_this.config.length){
-                                domIndex=0;
+                        if(this.config.directionChange){
+                            return ;
+                        }else{
+                             var baseDomIndex=(_this.config.length-(Math.abs(index)*_this.config.steps)) %_this.config.length;
+                            if(baseDomIndex < 0) {
+                                baseDomIndex=_this.config.length+baseDomIndex;
                             }
-                            var nL=content.children().eq(domIndex).css('left')=='auto' ? 0 : parseInt(content.children().eq(domIndex).css('left'));
                             
-                            content.children().eq(domIndex).css({
-                                position:'relative',
-                                left:nL-(_this.config.length * this.config.viewSize) 
-                            })
+                            for(var i= baseDomIndex  ;i< baseDomIndex+_this.config.steps;i++){
+                                var domIndex = i;
+                                if(i>=this.config.length){
+                                    domIndex=i%this.config.length;
+                                }
+                                var nL=content.children().eq(domIndex).css('left')=='auto' ? 0 : parseInt(content.children().eq(domIndex).css('left'));
+                                
+                                content.children().eq(domIndex).css({
+                                    position:'relative',
+                                    left:nL-(_this.config.length * this.config.viewSize) 
+                                })
+                            }
                         }
+                           
                     } else{
                         if(this.config.directionChange){
                             return ;
                         } else{
                              if(index >=0){
                                 var baseDomIndex=((index)*this.config.steps)%this.config.length;
-                                // console.l
                                 for( var i = baseDomIndex  ; i <baseDomIndex+this.config.steps;i++ ){
                                     
                                     var domIndex=i;
 
-                                    if(i==this.config.length){
-                                        domIndex=0;
+                                    if(i>=this.config.length){
+                                        domIndex=i%this.config.length;
                                     }
                                     var nL=content.children().eq(domIndex).css('left')=='auto' ? 0 : parseInt(content.children().eq(domIndex).css('left'));
                                     content.children().eq(domIndex).css({
@@ -429,6 +430,10 @@ define('carousel', function (require, exports, module) {
             default:
                 break;
         }
+    };
+    Carousel.prototype.moveCallBack = function(_this){
+         _this.config.callback && _this.config.callback();
+         _this.config._isMove=false;
     };
     module.exports = Carousel;
 });

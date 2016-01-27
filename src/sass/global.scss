@@ -177,12 +177,16 @@
 	}
 }
 
-@media screen and (max-width:830px ){
-	#demo1{
-		width:350px;
-	}
-	#demo1  .ui-carousel__scroller{
-		width:350px;
-		margin:0 auto;
-	}
+// @media screen and (max-width:830px ){
+// 	#demo1{
+// 		width:350px;
+// 	}
+// 	#demo1  .ui-carousel__scroller{
+// 		width:350px;
+// 		margin:0 auto;
+// 	}
+// }
+img{
+	width: 100%;
+	height: 100%;
 }

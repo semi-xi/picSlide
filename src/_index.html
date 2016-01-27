@@ -8,45 +8,45 @@
     <meta name="Keywords" content="多玩游戏">
     <meta name="description" content="">
     <title> 多玩游戏 </title>
-    <link href="css/global.css" rel="stylesheet">
+    <link href="css/global.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div class="wrap">
         <div class="ui-carousel" data-role="carousel-demo1" id="demo1">
             <div class="ui-carousel__scroller">
-                <ul class="ui-carousel__content carousel-plugin-css3" data-switchable-role="content">
+                <ul class="ui-carousel__content carousel-plugin-css3" data-carousel="content">
                     <li class="ui-carousel__item">
-                        <img src="http://ued.yypm.com/90x80x1" alt="">
+                        <img src="http://placekitten.com/350/200" alt="">
                     </li>
                     <li class="ui-carousel__item">
-                        <img src="http://ued.yypm.com/90x80x2" alt="">
+                        <img src="http://tupian.qqjay.com/u/2013/1127/19_222949_14.jpg" alt="">
                     </li>
                     <li class="ui-carousel__item">
-                        <img src="http://ued.yypm.com/90x80x3" alt="">
+                        <img src="http://tupian.qqjay.com/u/2013/1127/19_222949_3.jpg" alt="">
                     </li>
                     <li class="ui-carousel__item">
-                        <img src="http://ued.yypm.com/90x80x4" alt="">
+                        <img src="http://tupian.qqjay.com/u/2013/1127/19_222949_4.jpg" alt="">
                     </li>
                     <li class="ui-carousel__item">
-                        <img src="http://ued.yypm.com/90x80x5" alt="">
+                        <img src="http://tupian.qqjay.com/u/2013/1127/19_222949_5.jpg" alt="">
                     </li>
-                    <!-- <li class="ui-carousel__item">
-                        <img src="http://ued.yypm.com/90x80x6" alt="">
-                    </li> -->
+                    <li class="ui-carousel__item">
+                        <img src="http://tupian.qqjay.com/u/2013/1127/19_222949_6.jpg" alt="">
+                    </li>
 
-                   <!--  <li class="ui-carousel__item">
-                        <img src="http://ued.yypm.com/90x80x7" alt="">
-                    </li> -->
+                    <li class="ui-carousel__item">
+                        <img src="http://tupian.qqjay.com/u/2013/1127/19_222949_7.jpg" alt="">
+                    </li>
                     <!-- <li class="ui-carousel__item">
-                        <img src="http://ued.yypm.com/90x80x8" alt="">
+                        <img src="http://tupian.qqjay.com/u/2013/1127/19_222949_8.jpg" alt="">
                     </li>
                     <li class="ui-carousel__item">
-                        <img src="http://ued.yypm.com/90x80x9" alt="">
+                        <img src="http://tupian.qqjay.com/u/2013/1127/19_222949_9.jpg" alt="">
                     </li> -->
                 </ul>
             </div>
-            <span class="ui-carousel__prev" data-switchable-role="prev"><i class="ui-icon">&#xe628;</i></span>
-            <span class="ui-carousel__next" data-switchable-role="next"><i class="ui-icon">&#xe642;</i></span>
+            <span class="ui-carousel__prev" data-carousel="prev"><i class="ui-icon">&#xe628;</i></span>
+            <span class="ui-carousel__next" data-carousel="next"><i class="ui-icon">&#xe642;</i></span>
         </div>
       <!--   <div class="ui-carousel ext-vertical" data-role="carousel-demo2">
             <div class="ui-carousel__scroller">
@@ -87,8 +87,8 @@
             <span class="ui-carousel__next" data-switchable-role="next"><i class="ui-icon">&#xe654;</i></span>
         </div> -->
     </div>
-
-    <script src="js/sea.js"></script>
+    <!-- seajs版本 start -->
+   <!--  <script src="js/sea.js"></script>
     <script src="js/sea.config.js"></script>
     <script type="text/javascript">
     seajs.use(['carousel','$-debug'],function(Carousel,$){
@@ -97,14 +97,41 @@
             element: 'div[data-role=carousel-demo1]',
             direction:'scrollX',
             autoplay: false,
-            steps:2,
+            steps:3,
             circular:true,
             viewSize:100,
-            css3:true
+            css3:true,
+            easing:'ease-in-out',
+            duration:300,
+            cb:function(){
+                console.log('动画已经结束')
+            }
         });
 
         console.log(carousel1)
     })
+    </script> -->
+    <!-- seajs版本 end -->
+    
+    <!-- jq版本 start -->
+    <script type="text/javascript" src="http://assets.dwstatic.com/common/js/jquery.js"></script>
+    <script type="text/javascript" src="js/carousel-jq.js"></script>
+    <script type="text/javascript">
+        window.carousel1=new Carousel({
+            element: 'div[data-role=carousel-demo1]',
+            direction:'scrollX',
+            autoplay: false,
+            steps:3,
+            circular:true,
+            viewSize:100,
+            css3:true,
+            easing:'ease-in-out',
+            duration:300,
+            cb:function(){
+                console.log('动画已经结束')
+            }
+        });
     </script>
+    <!-- jq版本 end -->
 </body>
 </html>
